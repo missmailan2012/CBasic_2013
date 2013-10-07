@@ -1,0 +1,11 @@
+Ki tu '
+' co ma 10 xuat hien 1 lan.
+Ki tu ' ' co ma 32 xuat hien 4 lan.
+Ki tu 'X' co ma 88 xuat hien 1 lan.
+Ki tu 'a' co ma 97 xuat hien 4 lan.
+Ki tu 'b' co ma 98 xuat hien 1 lan.
+Ki tu 'c' co ma 99 xuat hien 3 lan.
+Ki tu 'h' co ma 104 xuat hien 2 lan.
+Ki tu 'i' co ma 105 xuat hien 1 lan.
+Ki tu 'n' co ma 110 xuat hien 3 lan.
+Ki tu 'o' co ma 111 xuat hien 1 lan.
