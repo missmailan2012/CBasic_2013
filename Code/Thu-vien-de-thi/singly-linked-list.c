@@ -179,7 +179,6 @@ status_t singly_linked_list_seek(singly_linked_list_bus a, blocks *current, char
   stt.stt=1;
   int sothutu;
   singly_linked_list_offset_of_element(a, *current, &sothutu);
-  printf("Offset hien tai la: %d\n", sothutu);
   if(huong == '<')
     {
       if( (sothutu-number_element) < 0)
@@ -239,7 +238,7 @@ status_t singly_linked_list_linked_blocks_and_blocks(blocks nhat, blocks nhi)
   return stt;
 }
 
-status_t singly_linked_lits_delete_current_blocks(singly_linked_list_bus* a, blocks* curr)
+status_t singly_linked_list_delete_current_blocks(singly_linked_list_bus* a, blocks* curr)
 {
   if(curr->adress == NULL)
     {
@@ -279,7 +278,7 @@ status_t singly_linked_lits_delete_current_blocks(singly_linked_list_bus* a, blo
   void* t3;
   t3=t.adress;
   singly_linked_list_seek(*a, curr,'<',1);
-  singly_linkes_list_seek(*a, &t, '>',1);
+  singly_linked_list_seek(*a, &t, '>',1);
   singly_linked_list_linked_blocks_and_blocks(*curr, t);
   free(t3);
   // Update bus;
@@ -288,7 +287,7 @@ status_t singly_linked_lits_delete_current_blocks(singly_linked_list_bus* a, blo
   return stt;
 }
 
-status_t sinly_linked_list_insert_prew_current_blocks(singly_linked_list_bus* a, blocks curr, blocks add)
+status_t singly_linked_list_insert_prew_current_blocks(singly_linked_list_bus* a, blocks curr, blocks add)
 {
   int tt;
   if(curr.adress == NULL)
@@ -370,18 +369,21 @@ status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a
   status_t stt;
   stt.stt=1;
   blocks bl;
+  bl.size=curr.size;
   bl.adress=malloc(curr.size);
   if(bl.adress == NULL)
     {
       printf("Khong the cap phat bo nho dong duoc!\n");
       exit(1);
     }
-  bl.size=add.size;
   copy_blocks_to_blocks(add,bl);
-  bl.adress+=(bl.size-sizeof(blocks));
+  bl.adress+=(curr.size - sizeof(blocks));
   ((blocks*)(bl.adress))->adress=NULL;
-  ((blocks*)(bl.adress))->size=add.size;
-  if(curr.adress == (a->end).adress)
+  ((blocks*)(bl.adress))->size=curr.size;
+  bl.adress-=(curr.size - sizeof(blocks));
+  int tt;
+  singly_linked_list_offset_of_element(*a,curr,&tt);
+  if( tt == (a->sizeofbus -1))
     {
       singly_linked_list_linked_blocks_and_blocks(a->end,bl);
       (a->end).adress=bl.adress;
@@ -390,13 +392,13 @@ status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a
       stt.stt=0;
       return stt;
     }
+  add.adress=curr.adress;
+  add.size=curr.size;
+  singly_linked_list_seek(*a, &add, '>', 1);
+  singly_linked_list_linked_blocks_and_blocks(bl,add);
   singly_linked_list_linked_blocks_and_blocks(curr,bl);
-  singly_linked_list_seek(*a, &curr, '>', 1);
-  singly_linked_list_linked_blocks_and_blocks(bl,curr);
   // Update bus;
   a->sizeofbus++;
   stt.stt=0;
   return stt;
 }
-
-
