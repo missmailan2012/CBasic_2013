@@ -224,12 +224,12 @@ status_t singly_linked_list_linked_blocks_and_blocks(blocks nhat, blocks nhi)
       printf("Blocks thu nhat co adress = NULL!\n");
       exit(1);
     }
-  if(nhi.adress == NUL)
+  if(nhi.adress == NULL)
     {
       printf("Blocks thu hai co adress = NULL!\n");
       exit(1);
     }
-  sttus_t stt;
+  status_t stt;
   stt.stt=1;
   void* t;
   t=nhat.adress;
@@ -239,7 +239,7 @@ status_t singly_linked_list_linked_blocks_and_blocks(blocks nhat, blocks nhi)
   return stt;
 }
 
-status singly_linked_lits_delete_current_blocks(singly_linked_list_bus* a, blocks* curr)
+status_t singly_linked_lits_delete_current_blocks(singly_linked_list_bus* a, blocks* curr)
 {
   if(curr->adress == NULL)
     {
@@ -256,9 +256,9 @@ status singly_linked_lits_delete_current_blocks(singly_linked_list_bus* a, block
   blocks t;
   t.adress = curr->adress;
   t.size = curr->size;
-  if(t.adress == (a->fisrt).adress)
+  if(t.adress == (a->firts).adress)
     {
-      singly_linked_list_seek(*a,&(a->fisrt),'>',1);
+      singly_linked_list_seek( *a,&(a->firts), '>', 1);
       free(curr->adress);
       curr->adress=NULL;
       // Update bus
@@ -301,7 +301,7 @@ status_t sinly_linked_list_insert_prew_current_blocks(singly_linked_list_bus* a,
       printf("Blocks can them vao co adress = NULL!\n");
       exit(1);
     }
-  if(cur.size != (a->sizeofdata +sizeof(blocks)))
+  if(curr.size != (a->sizeofdata +sizeof(blocks)))
     {
       printf("Kich thuoc du lieu blocks current khong tuong thich voi bus du lieu!\n");
       exit(1);
@@ -367,6 +367,8 @@ status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a
       printf("Kich co du lieu blocks hien tai va blocks can chen khong tuong thich!\n");
       exit(1);
     }
+  status_t stt;
+  stt.stt=1;
   blocks bl;
   bl.adress=malloc(curr.size);
   if(bl.adress == NULL)
@@ -389,7 +391,7 @@ status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a
       return stt;
     }
   singly_linked_list_linked_blocks_and_blocks(curr,bl);
-  singly_linked_list_seek(a,&curr,'>',1);
+  singly_linked_list_seek(*a, &curr, '>', 1);
   singly_linked_list_linked_blocks_and_blocks(bl,curr);
   // Update bus;
   a->sizeofbus++;
