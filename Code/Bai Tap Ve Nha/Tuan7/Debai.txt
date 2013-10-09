@@ -1,0 +1,22 @@
+﻿bt1.
+
+1. import from NokiaDB.dat(insertafter).
+2. display(traverse).
+3. add new phone (insert before/after).
+4. insert at position.
+5. delete ad position.
+6. delete current.
+7. delete first.
+8. search and update.
+9. divide and extract.
+10. reverse list.
+11. save to file.
+12. quit.
+
+bt2.
+
+the list is sorted in descending oeder of student's grade.
+program provide the functionality of:
++ insert new student(when you insert a new student into this list, first find the right position)
++searching a student by ID: return to a pointer.
++delete a student with a given ID.

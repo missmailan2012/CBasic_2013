@@ -1,0 +1,17 @@
+-đọc dữ liệ từ file phone.dat( đã tạo từ bt tuần trước) và nạp vào danh sách liên kết đơn.
++phải sử dụng các hàm đã xd ở lớp.
++đưa ra nội dung danh sách các sđt liên lạc.
++yêu cầu người dùng nhập thêm các sđt nếu cần việc nhập thêm lựa chọn trước hay sau vị trí hiện tại
++khi thêm vào hỏi thêm trước hay sau vị trí hiện tại.
+
+-truy nhập trangthegioididong.vn
++ lấy thông tin các đtdđ và ghi vào file nokia.txt
++theo format sau(trên 1 dòng):
+model dl bộ nhớ k thước màn hình giá.
++viết ct menu:
+1.import Danh Bạ from text viết ct tự động(dùng bộ nhớ động) chuyển thành nokiaDB.dat
+2.import from danhba đọc từ file.dat ra hỗ trợ chế độ được toàn phần và đọc 1 phần từ 2 vị trí đầu và cuối.
+3.print all nokia database đọc từ dữ liệu nokia.dat ra màn hình.
+nếu nhiều hơn màn hình thì phải phân trang.
+4.tìm kiếm đt: theo model.
+5.exit.
