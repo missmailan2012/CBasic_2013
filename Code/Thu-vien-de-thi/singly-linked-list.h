@@ -30,7 +30,7 @@ void singly_linked_list_init(singly_linked_list_bus* , int);
 status_t copy_blocks_to_blocks(blocks, blocks);
 // Nhap vao blocks hien tai no se dieu chinh dia chi blocks dau ra la dia chi ke tiep;
 status_t singly_linked_list_element_next(blocks, blocks*);
-// Them vuo cuoi bus data mot blocks;
+// Them vao cuoi bus data mot blocks;
 status_t singly_linked_list_bus_add_end(singly_linked_list_bus*, blocks);
 // Tra ve bus la phan tu thu int trong bus du lieu;
 status_t singly_linked_list_element(singly_linked_list_bus, int, blocks*);
@@ -46,7 +46,14 @@ status_t singly_linked_list_delete_current_blocks(singly_linked_list_bus* a, blo
 status_t singly_linked_list_insert_prew_current_blocks(singly_linked_list_bus* a, blocks curr, blocks add);
 // Chen sau blocks hien tai;
 status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a, blocks curr, blocks add);
+
 // Ham add du lieu vao bus tu dong sap xep;
-// status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char huong, blocks add);
+status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char hamsosanh(blocks,blocks),char huong, blocks add);
 // Tim mot phan tu trong lien ket theo kieu chay tu dau day xuong cuoi day.
-// status_t singly_linked_list_search()
+status_t singly_linked_list_search(singly_linked_list_bus a, char hambangnhau(blocks original, blocks input), blocks* return_point);
+// Hien thi tat ca du lieu trong Bus du lieu. Luu y, ban phai chuan bi ham hien thi data
+// Ham nay chi co tac dung tai du lieu tu bus ra block trung chuyen ma thoi.
+status_t singly_linked_list_print_all(singly_linked_list_bus a, void hamhienthi(blocks));
+// Dao lai bus, tuc la dao nguoc lai danh sach du lieu.
+status_t singly_linked_list_repawn(singly_linked_list_bus* a);
+status_t singly_linked_list_destroi_all_bus(singly_linked_list_bus *a);

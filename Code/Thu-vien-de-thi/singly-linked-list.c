@@ -402,3 +402,53 @@ status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a
   stt.stt=0;
   return stt;
 }
+
+status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char hamsosanh(blocks lef, blocks rig), char huong, blocks add)
+{
+  if(a->sizeofdata != (add.size-sizeof(blocks)))
+    {
+      printf("Singly_linked_list_insert_auto_sort: Sizeof data != sizeofdata in blocks add.\n");
+      exit(1);
+    }
+  status_t stt;
+  stt.stt=1;
+  if(a->sizeofbus == 0)
+    {
+      singly_linked_list_bus_add_end(a,add);
+      stt.stt=0;
+      return stt;
+    }
+  blocks trungchuyen1;
+  int vitri1;
+  int conchay1;
+  char bingo;
+  bingo=2;
+  for(conchay1=0;1;conchay1++)
+    {
+      if(hamsosanh() == 1)
+	{
+	  continue;
+	}
+      if(hamsosanh() == 0)
+	{
+	  bingo =0;
+	  break;
+	}
+      if(hamsosanh() == -1)
+	{
+	  bingo=-1;
+	  break;
+	}
+    }
+  if()
+    {
+    }
+  if()
+    {
+    }
+  if()
+    {
+    }
+  stt.stt=0;
+  return stt;
+}
