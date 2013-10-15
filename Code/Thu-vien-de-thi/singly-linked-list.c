@@ -422,33 +422,172 @@ status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char ham
   int vitri1;
   int conchay1;
   char bingo;
-  bingo=2;
-  for(conchay1=0;1;conchay1++)
+  bingo=0;
+  for(conchay1=0;conchay1 < a->sizeofbus;conchay1++)
+  {
+    singly_linked_list_element(*a,conchay1,&trungchuyen1);
+    if(hamsosanh(add,trungchuyen1) == -1)
     {
-      if(hamsosanh() == 1)
-	{
-	  continue;
-	}
-      if(hamsosanh() == 0)
-	{
-	  bingo =0;
-	  break;
-	}
-      if(hamsosanh() == -1)
-	{
-	  bingo=-1;
-	  break;
-	}
+      bingo=1;
+      break;
     }
-  if()
-    {
-    }
-  if()
-    {
-    }
-  if()
-    {
-    }
+  }
+  if(bingo ==0)
+  {
+    singly_linked_list_insert_next_current_blocks(a,trungchuyen1,add);
+    stt.stt=0;
+    return stt;
+  }
+  if(bingo == 1)
+  {
+    singly_linked_list_insert_prew_current_blocks(a,trungchuyen1,add);
+    stt.stt=0;
+    return stt;
+  }
   stt.stt=0;
   return stt;
 }
+
+status_t singly_linked_list_selection_sort(singly_linked_list_bus* a, char hamsosanh(blocks lef, blocks rig))
+{
+}
+
+status_t singly_linked_list_search(dingly_linked_list_bus a, char hamsosanh(blocks original, blocks input), blocks* return_point)
+{
+  if(return_pint == NULL)
+  {
+    printf("singly_linked_list_search: Lỗi! Con trỏ blocks cần tìm NULL.\n");
+    exit(1);
+  }
+  if( (return->size - sizeof(blocks)) != a.sizeofdata )
+  {
+    printf("singly_linked_list_search: Lỗi! Giá trị size data khong tương đồng size data trong bus.\n");
+    exit(1);
+  }
+  int conchay1;
+  blocks trungchuyen1;
+  status_t stt;
+  stt.stt =-1;
+  for(conchay1=0; conchay1 < a.sizeofbus; conchay1++)
+  {
+    singly_linked_list_element(a, conchay1, &trungchuyen1);
+    if(!hamsosanh(*return_blocks, trungchuyen1))
+    {
+      *return_blocks=trungcuyen1;
+      stt.stt=conchay1;
+      return stt;
+    }
+  }
+  return stt;
+}
+
+status_t singly_list_search_divide_to_conpuer(singly_linked_list_bus a, char hamsosanh(blocks lef, blocks rig), blocks* return_point)
+{
+  status_st stt;
+  stt.stt =-1;
+  if(a.sizeofbus == 0)
+  {
+    return stt;
+  }
+  blocks trunchuyen1;
+  int vt1, vt2;
+  vt1=0;
+  vt2= (a.sizeofbus -1);
+  singly_linked_list_element(a, tv1, &trungchuyen1);
+  if(hamsosanh(*return_point, trungchuyen1))
+  {
+  }
+}
+
+status_t singly_linkedlist_printf_from_t1_to_t2(singly_linked_list_bus a, int t1, int t1, void hamhienthi(blocks))
+{
+  status_t stt;
+  stt.stt =1;
+  if(a.sizeofbus == 0)
+  {
+    printf("Danh sách rỗng.\n");
+    stt.stt=0;
+    return stt;
+  }
+  if(t1 < t2)
+  {
+    printf("singly_linked_list_printf_from_t1_to_t2: Lỗi do vị trí 1 lớn hơn vị trí 2.\n");
+    exit(1);
+  }
+  if( (t1 < 0) || (t2 > (a.sizeofbus +1)))
+  {
+    if(t1 < 0)
+    {
+      printf("singly_linked_list_printf_from_t1_to_t2: Lỗi do vị trí t1 không thích hợp.\n");
+      exit(1);
+    }
+    printf("singly_linked_list_printf_from_t1_to_t2: Lỗi do vị trí t2 không thích hợp.\n");
+    exit(1);
+  }
+  blocks trungchuyen1;
+  int conchay1;
+  for(conchay1=t1; conchay1 <=t2; conchay1++)
+  {
+    singly_linked_list_element(a, conchay1, &trungchuyen1);
+    hamhienthi(trungchuyen);
+  }
+  stt.stt=0;
+  return stt;
+}
+status_t singly_linked_list_repawn(singly_linked_list_bus* a)
+{
+  if( a == NULL)
+  {
+    printf("singly_linked_list_repawn: Lỗi! Con trỏ bus rỗng.\n");
+  }
+  status_t stt;
+  stt.stt=1;
+  if(a->sizeofbus == 0)
+  {
+    stt.stt =0;
+    return stt;
+  }
+  int conchay1;
+  conchay1=(a->sizeofbus -1);
+  blocks trungchuyen1, trungchuyen2;
+  singly_linked_list_element(*a, conchay1, &trunchuyen2);
+  while(conchay1-- > 0)
+  {
+    singly_linked_list_element(*a, conchay1, &trungchuyen1);
+    singly_linked_list_linked_blocks_and_blocks(trungchuyen2, trungchuyen1);
+    trungchuyen2=trungchuyen1;
+  }
+  trungchuyen1=a->firts;
+  a->firts=a->end;
+  a->end=trungchuyen1;
+  stt.stt=0;
+  return stt;
+}
+
+status_t linked_list_destroi_all_bus(singly_linked_list_bus* a)
+{
+  if(a == NULL)
+  {
+    printf("linked_list_destroi_all_bus: Lỗi! Con trỏ đến bus NULL.\n");
+    exit(1);
+  }
+  status_t stt;
+  stt.stt=1;
+  if( a->sizeofbuss == 0)
+  {
+    stt.stt=0;
+    return 0;
+  }
+  int conchay1;
+  conchay1=(a->sizeofbus -1);
+  blocks trunchuyen1;
+  for(conchay1>=0;conchay1--)
+  {
+    singly_linked_list_element(*a, conchay1, &trungchuyen1);
+    singly_linked_list_delete_current_blocks(a, &trungchuyen1);
+  }
+  stt.stt=0;
+  return stt;
+}
+
+

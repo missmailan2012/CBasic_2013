@@ -19,7 +19,7 @@ typedef struct
 
 typedef struct
 {
-  char stt;
+  int stt;
   void* point;
 }status_t;
 
@@ -46,14 +46,20 @@ status_t singly_linked_list_delete_current_blocks(singly_linked_list_bus* a, blo
 status_t singly_linked_list_insert_prew_current_blocks(singly_linked_list_bus* a, blocks curr, blocks add);
 // Chen sau blocks hien tai;
 status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a, blocks curr, blocks add);
-
-// Ham add du lieu vao bus tu dong sap xep;
+// Hàm add blocks vào bus và từ động sắp xếp theo chiều tăng dần;
 status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char hamsosanh(blocks,blocks),char huong, blocks add);
-// Tim mot phan tu trong lien ket theo kieu chay tu dau day xuong cuoi day.
-status_t singly_linked_list_search(singly_linked_list_bus a, char hambangnhau(blocks original, blocks input), blocks* return_point);
-// Hien thi tat ca du lieu trong Bus du lieu. Luu y, ban phai chuan bi ham hien thi data
-// Ham nay chi co tac dung tai du lieu tu bus ra block trung chuyen ma thoi.
-status_t singly_linked_list_print_all(singly_linked_list_bus a, void hamhienthi(blocks));
-// Dao lai bus, tuc la dao nguoc lai danh sach du lieu.
+// Sắp xếp bus theo thuật tóan sắp xếp chọn selection sort
+status_t singly_linked_list_selection_sort(singly_linked_list_bus* a, char hamsosanh(blocks, blocks));
+// Tìm một phần tử trong bus theo kiểu chạy từ đầu bus đến cuối bus;
+// Vị trí của phần từ tìm thấy nằm trong status_t.stt. Nếu không có thì sẽ trả về -1;
+status_t singly_linked_list_search(singly_linked_list_bus a, char hamsosanh(blocks original, blocks input), blocks* return_point);
+// Tìm một phần tử bằng thuật tóan chia để trị. Yêu cầu bạn sắp xếp bus trước khi dùng hàm này;
+// Vị trí của phần tử tìm thấy nằm trong status_t.stt. Nếu không có thi sẽ trả về -1;
+status_t singly_linked_list_search_divide_to_conpuer(singly_linked_list_bus a, char hamsosanh(blocks original, blocks input, blocks* return_point));
+// Hàm này có tác dụng trung chuyển từ phần tử thứ t1 đến phần tử thứ t2 cho hàm hiển thị;
+// Bạn cần chuẩn bị sẵn hàm hiển thị để dùng hàm này;
+status_t singly_linked_list_print_from_t1_to_t2(singly_linked_list_bus a, int 1, int t2, void hamhienthi(blocks));
+// Đảo ngược lại bus. Tức là đảo lại thứ tự của bus;
 status_t singly_linked_list_repawn(singly_linked_list_bus* a);
+// Phá hủy bus dữ liệu, hay là giải phóng bus;
 status_t singly_linked_list_destroi_all_bus(singly_linked_list_bus *a);
