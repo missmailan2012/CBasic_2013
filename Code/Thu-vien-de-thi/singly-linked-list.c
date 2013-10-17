@@ -12,7 +12,7 @@ void singly_linked_list_bus_init(singly_linked_list_bus* a, int sizeofdata)
   a->end.size=sizeofdata+sizeof(blocks);
 }
 
-status_t copy_blocks_to_blocks(blocks a, blocks b)
+status_t sinhly_linked_list_copy_blocks_to_blocks(blocks a, blocks b)
 {
   if(a.size != b.size)
     {
@@ -29,6 +29,66 @@ status_t copy_blocks_to_blocks(blocks a, blocks b)
       b.adress++;
     }
   // Tra ve stt=0 neu khong co loi.
+  stt.stt=0;
+  return stt;
+}
+
+status_t singly_linked_list_swap_data_blocks_to_blocks(blocks a, blocks b)
+{
+  status_t stt;
+  stt.stt =1;
+  if( a.size != b.size)
+  {
+    printf("singly_linked_list_swap_blocks_to_blocks: Lỗi! Kích thước 2 blocks không tương thích.\n");
+    exit(1);
+  }
+  a.size-=sizeof(blocks);
+  b.size-=sizeof(blocks);
+  blocks tmp;
+  tmp.adress=malloc(a.size);
+  if( tmp.adress == NULL)
+  {
+    printf("singly_linked_list_swap_data_blocks_to_blocks: Lỗi không thể cấp phát blocks động.\n");
+    exit(1);
+  }
+  tmp.size=a.size;
+  singly_linked_list_copy_blocks_to_blocks(a, tmp);
+  singly_linked_list_copy_blocks_to_blocks(b,a);
+  singly_linked_list_copy_blocks_to_blocks(tmp,b);
+  free(tmp.adress);
+  stt.stt=0;
+  return stt;
+}
+
+status_t singly_linked_list_swap_blocks_of_blocks_to_blocks(blocks a, blocks b)
+{
+/*
+  if( (a.size) != (b.size ) )
+  {
+    printf("singly_linked_list_swap_blocps_of_blocks_to_blocks: Lỗi! Kíc thước 2 blocks không tương thích.\n");
+    exit(1);
+  }
+*/
+  int size_tmp;
+  status_t stt;
+  stt.stt=1;
+  size_tmp = a.size;
+  size_tmp-=sizeof(blocks);
+  a.size=sizeof(blocks);
+  b.size=sizeof(blocks);
+  a.adress+=size_tmp;
+  b.adress+=size_tmp;
+  blocks t;
+  t.size=sizeof(blocks);
+  t.adress=malloc(t.size);
+  if(t.adress == NULL)
+  {
+    printf("singly_linked_list_swap_blocks_of_blocks_to_blocks: Lỗi! Không thể cấp phát blocks động.\n");
+    exit(1);
+  }
+  singly_linked_list_copy_blocks_to_blocks(a,t);
+  singly_linked_list_copy_blocks_to_blocks(b,a);
+  singly_linked_list_copy_blocks_to_blocks(t,b);
   stt.stt=0;
   return stt;
 }
@@ -73,7 +133,7 @@ status_t singly_linked_list_bus_add_end(singly_linked_list_bus* a, blocks add)
   new.size=a->sizeofdata+sizeof(blocks);
 
   // Hoan chinh phan tu;
-  copy_blocks_to_blocks(add,new);
+  sinhly_linked_list_copy_blocks_to_blocks(add,new);
   temp+=a->sizeofdata;
   ((blocks*)temp)->adress=NULL;
   ((blocks*)temp)->size=a->sizeofdata+sizeof(blocks);
@@ -321,7 +381,7 @@ status_t singly_linked_list_insert_prew_current_blocks(singly_linked_list_bus* a
       printf("Co loi khi cap phat!\n");
       exit(1);
     }
-  copy_blocks_to_blocks(add,bl);
+  sinhly_linked_list_copy_blocks_to_blocks(add,bl);
   bl.adress+=(curr.size - sizeof(blocks));
   ((blocks*)(bl.adress))->size=curr.size;
   ((blocks*)(bl.adress))->adress=NULL;
@@ -376,7 +436,7 @@ status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a
       printf("Khong the cap phat bo nho dong duoc!\n");
       exit(1);
     }
-  copy_blocks_to_blocks(add,bl);
+  sinhly_linked_list_copy_blocks_to_blocks(add,bl);
   bl.adress+=(curr.size - sizeof(blocks));
   ((blocks*)(bl.adress))->adress=NULL;
   ((blocks*)(bl.adress))->size=curr.size;
@@ -403,7 +463,7 @@ status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a
   return stt;
 }
 
-status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char hamsosanh(blocks lef, blocks rig), char huong, blocks add)
+status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char hamsosanh(blocks lef, blocks rig), blocks add)
 {
   if(a->sizeofdata != (add.size-sizeof(blocks)))
     {
@@ -448,18 +508,77 @@ status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char ham
   return stt;
 }
 
-status_t singly_linked_list_selection_sort(singly_linked_list_bus* a, char hamsosanh(blocks lef, blocks rig))
+
+status_t singly_linked_list_selection_sort(singly_linked_list_bus* a, char hamsosanh(blocks lef, blocks rig), char huong)
 {
+  status_t stt;
+  if(a == NULL)
+  {
+    printf("singly_linked_list_selection_sort: Lỗi! Con trỏ bus cần sắp xếp NULL.\n");
+    exit(1);
+  }
+  if( a->sizeofbus == 1)
+  {
+    return stt;
+  }
+  blocks select, run, mark;
+  int conchay1, conchay2;
+  if( huong != '<' && huong != '>')
+  {
+    printf("singly_linked_list_selection_sort: Lỗi! Hướng không phù hợp.\n");
+    exit(1);
+  }
+  if( huong == '<')
+  {
+    for(conchay1=0;conchay1 < (a->sizeofbus -1); conchay1++)
+    {
+      singly_linked_list_element(*a, conchay1, &select);
+      mark=select;
+      for(conchay2=conchay1+1; conchay2< a->sizeofbus; conchay2++)
+      {
+        singly_linked_list_element(*a, conchay2, &run);
+        if(hamsosanh(mark,run) == 1)
+        {
+          mark=run;
+        }
+      }
+      if(mark.adress != select.adress)
+      {
+        singly_linked_list_swap_data_blocks_to_blocks(select, mark);
+      }
+    }
+    stt.stt=0;
+    return stt;
+  }
+  for(conchay1=0; conchay1 < (a->sizeofbus -1); conchay1++)
+  {
+    singly_linked_list_element(*a, conchay1, &select);
+    mark=select;
+    for(conchay2=conchay1+1; conchay2 < a->sizeofbus; conchay2++)
+    {
+      singly_linked_list_element(*a, conchay2, &run);
+      if(hamsososanh(mark,run) == -1)
+      {
+        mark=run;
+      }
+    }
+    if(mark.adress!= select.adress)
+    {
+      singly_linked_list_swap_data_blocks_to_blocks(select, mark);
+    }
+  }  
+  stt.stt=0;
+  return stt;
 }
 
-status_t singly_linked_list_search(dingly_linked_list_bus a, char hamsosanh(blocks original, blocks input), blocks* return_point)
+status_t singly_linked_list_search(singly_linked_list_bus a, char hamsosanh(blocks original, blocks input), blocks* return_point)
 {
-  if(return_pint == NULL)
+  if(return_point == NULL)
   {
     printf("singly_linked_list_search: Lỗi! Con trỏ blocks cần tìm NULL.\n");
     exit(1);
   }
-  if( (return->size - sizeof(blocks)) != a.sizeofdata )
+  if( (return_point->size - sizeof(blocks)) != a.sizeofdata )
   {
     printf("singly_linked_list_search: Lỗi! Giá trị size data khong tương đồng size data trong bus.\n");
     exit(1);
@@ -471,35 +590,94 @@ status_t singly_linked_list_search(dingly_linked_list_bus a, char hamsosanh(bloc
   for(conchay1=0; conchay1 < a.sizeofbus; conchay1++)
   {
     singly_linked_list_element(a, conchay1, &trungchuyen1);
-    if(!hamsosanh(*return_blocks, trungchuyen1))
+    if(!hamsosanh(*return_point, trungchuyen1))
     {
-      *return_blocks=trungcuyen1;
+      *return_point=trungchuyen1;
       stt.stt=conchay1;
       return stt;
     }
   }
+  return_point->adress=NULL;
   return stt;
 }
 
 status_t singly_list_search_divide_to_conpuer(singly_linked_list_bus a, char hamsosanh(blocks lef, blocks rig), blocks* return_point)
 {
-  status_st stt;
+  status_t stt;
   stt.stt =-1;
   if(a.sizeofbus == 0)
   {
     return stt;
   }
-  blocks trunchuyen1;
+  blocks trungchuyen1;
   int vt1, vt2;
   vt1=0;
   vt2= (a.sizeofbus -1);
-  singly_linked_list_element(a, tv1, &trungchuyen1);
-  if(hamsosanh(*return_point, trungchuyen1))
+  singly_linked_list_element(a, vt1, &trungchuyen1);
+  switch(hamsosanh(*return_point, trungchuyen1))
   {
+    case 0:
+    {
+      stt.stt=0;
+      *return_point=trungchuyen1;
+      return stt;
+    }
+    case 1:
+    {
+      break;
+    }
+    case -1:
+    {
+      return_point->adress=NULL;
+      return stt;
+    }
   }
+  singly_linked_list_element(a, vt2, &trungchuyen1);
+  switch(hamsosanh(*return_point, trungchuyen1))
+  {
+    case 0:
+    {
+      *return_point=trungchuyen1;
+      stt.stt=vt2;
+      return stt;
+    }
+    case 1:
+    {
+      return_point->adress=NULL;
+      return stt;
+    }
+    case -1:
+    {
+      break;
+    }
+  }
+  while((vt2 - vt1) > 1)
+  {
+    singly_linked_list_element(a, (vt1+vt2)/2, &trungchuyen1);
+    switch(hamsosanh(*return_point, trungchuyen1))
+    {
+      case 0:
+      {
+        stt.stt=((vt1+vt2)/2);
+        *return_point=trungchuyen1;
+      }
+      case 1:
+      {
+        vt1=((vt1+vt2)/2);
+        break;
+      }
+      case -1:
+      {
+        vt2=((vt1+vt2)/2);
+        break;
+      }
+    }
+  }
+  return_point->adress=NULL;
+  return stt;
 }
 
-status_t singly_linkedlist_printf_from_t1_to_t2(singly_linked_list_bus a, int t1, int t1, void hamhienthi(blocks))
+status_t singly_linkedlist_printf_from_t1_to_t2(singly_linked_list_bus a, int t1, int t2, void hamhienthi(blocks))
 {
   status_t stt;
   stt.stt =1;
@@ -529,7 +707,7 @@ status_t singly_linkedlist_printf_from_t1_to_t2(singly_linked_list_bus a, int t1
   for(conchay1=t1; conchay1 <=t2; conchay1++)
   {
     singly_linked_list_element(a, conchay1, &trungchuyen1);
-    hamhienthi(trungchuyen);
+    hamhienthi(trungchuyen1);
   }
   stt.stt=0;
   return stt;
@@ -550,7 +728,7 @@ status_t singly_linked_list_repawn(singly_linked_list_bus* a)
   int conchay1;
   conchay1=(a->sizeofbus -1);
   blocks trungchuyen1, trungchuyen2;
-  singly_linked_list_element(*a, conchay1, &trunchuyen2);
+  singly_linked_list_element(*a, conchay1, &trungchuyen2);
   while(conchay1-- > 0)
   {
     singly_linked_list_element(*a, conchay1, &trungchuyen1);
@@ -573,15 +751,15 @@ status_t linked_list_destroi_all_bus(singly_linked_list_bus* a)
   }
   status_t stt;
   stt.stt=1;
-  if( a->sizeofbuss == 0)
+  if( a->sizeofbus == 0)
   {
     stt.stt=0;
-    return 0;
+    return stt;
   }
   int conchay1;
   conchay1=(a->sizeofbus -1);
-  blocks trunchuyen1;
-  for(conchay1>=0;conchay1--)
+  blocks trungchuyen1;
+  for(;conchay1>=0;conchay1--)
   {
     singly_linked_list_element(*a, conchay1, &trungchuyen1);
     singly_linked_list_delete_current_blocks(a, &trungchuyen1);

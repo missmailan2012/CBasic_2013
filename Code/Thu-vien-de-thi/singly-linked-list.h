@@ -26,8 +26,12 @@ typedef struct
 
 // Kkoi tao mot bus du lieu, dau vao la dia chi cua bus du lieu, cung kich co int cua truong du lieu;
 void singly_linked_list_init(singly_linked_list_bus* , int);
-// Copy blocks thu nhat sang blocks thu 2;
-status_t copy_blocks_to_blocks(blocks, blocks);
+// Copy blocks thứ nhất sang blocks thứ 2;
+status_t singly_linked_list_copy_blocks_to_blocks(blocks, blocks);
+// Hóan đổi thành phần data của hai blocks a và b. Giữ nguyên thành phần blocks của nó;
+status_t singly_linked_list_swap_data_blocks_to_blocks(blocks, blocks);
+// Hóan đổi thành phần blocks next của hai blocks a và b cho nhau;
+status_t singly_linked_list_swap_blocks_of_blocks_to_blocks(blocks, blocks);
 // Nhap vao blocks hien tai no se dieu chinh dia chi blocks dau ra la dia chi ke tiep;
 status_t singly_linked_list_element_next(blocks, blocks*);
 // Them vao cuoi bus data mot blocks;
@@ -47,18 +51,18 @@ status_t singly_linked_list_insert_prew_current_blocks(singly_linked_list_bus* a
 // Chen sau blocks hien tai;
 status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a, blocks curr, blocks add);
 // Hàm add blocks vào bus và từ động sắp xếp theo chiều tăng dần;
-status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char hamsosanh(blocks,blocks),char huong, blocks add);
-// Sắp xếp bus theo thuật tóan sắp xếp chọn selection sort
-status_t singly_linked_list_selection_sort(singly_linked_list_bus* a, char hamsosanh(blocks, blocks));
+status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char hamsosanh(blocks,blocks), blocks add);
+// Sắp xếp bus theo thuật tóan sắp xếp chọn selection sort, sap xep theo "huong";
+status_t singly_linked_list_selection_sort(singly_linked_list_bus* a, char hamsosanh(blocks, blocks), char huong);
 // Tìm một phần tử trong bus theo kiểu chạy từ đầu bus đến cuối bus;
 // Vị trí của phần từ tìm thấy nằm trong status_t.stt. Nếu không có thì sẽ trả về -1;
 status_t singly_linked_list_search(singly_linked_list_bus a, char hamsosanh(blocks original, blocks input), blocks* return_point);
 // Tìm một phần tử bằng thuật tóan chia để trị. Yêu cầu bạn sắp xếp bus trước khi dùng hàm này;
 // Vị trí của phần tử tìm thấy nằm trong status_t.stt. Nếu không có thi sẽ trả về -1;
-status_t singly_linked_list_search_divide_to_conpuer(singly_linked_list_bus a, char hamsosanh(blocks original, blocks input, blocks* return_point));
+status_t singly_linked_list_search_divide_to_conpuer(singly_linked_list_bus a, char hamsosanh(blocks original, blocks input), blocks* return_point);
 // Hàm này có tác dụng trung chuyển từ phần tử thứ t1 đến phần tử thứ t2 cho hàm hiển thị;
 // Bạn cần chuẩn bị sẵn hàm hiển thị để dùng hàm này;
-status_t singly_linked_list_print_from_t1_to_t2(singly_linked_list_bus a, int 1, int t2, void hamhienthi(blocks));
+status_t singly_linked_list_print_from_t1_to_t2(singly_linked_list_bus a, int t1, int t2, void hamhienthi(blocks));
 // Đảo ngược lại bus. Tức là đảo lại thứ tự của bus;
 status_t singly_linked_list_repawn(singly_linked_list_bus* a);
 // Phá hủy bus dữ liệu, hay là giải phóng bus;
