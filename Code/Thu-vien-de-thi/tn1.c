@@ -7,7 +7,6 @@ typedef struct
 }contact_t;
 
 
-int khaosat(FILE *file, int size);
 
 int main(int argc, char* argv[])
 {

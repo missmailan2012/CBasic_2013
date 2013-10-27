@@ -3,7 +3,7 @@
 
 void singly_linked_list_bus_init(singly_linked_list_bus* a, int sizeofdata)
 {
-  // Khoi tao mot bus du lieu.
+  // Khởi tạo một bus dữ liệu.
   a->sizeofdata=sizeofdata;
   a->sizeofbus=0;
   a->firts.adress=NULL;
@@ -12,23 +12,23 @@ void singly_linked_list_bus_init(singly_linked_list_bus* a, int sizeofdata)
   a->end.size=sizeofdata+sizeof(blocks);
 }
 
-status_t sinhly_linked_list_copy_blocks_to_blocks(blocks a, blocks b)
+status_t singly_linked_list_copy_blocks_to_blocks(blocks a, blocks b)
 {
   if(a.size != b.size)
     {
-      printf("Co loi khi sao chep blocks to blocks! Size cua 2 blocks khong trung nhau!\n");
+      printf("singly_linked_list_copy_blocks_to_blocks: Có lỗi khi sao chép blocks đến blocks! Size của 2 blocks không trùng nhau!\n");
       exit(1);
     }
   status_t stt;
   stt.stt=1;
-  // Sao chep tu a vao b;
+  // Sao chép từ a vào b;
   while(a.size--)
     {
       *((char*)b.adress)=*((char*)a.adress);
       a.adress++;
       b.adress++;
     }
-  // Tra ve stt=0 neu khong co loi.
+  // Trả về stt=0 nếu không có lỗi.
   stt.stt=0;
   return stt;
 }
@@ -62,13 +62,11 @@ status_t singly_linked_list_swap_data_blocks_to_blocks(blocks a, blocks b)
 
 status_t singly_linked_list_swap_blocks_of_blocks_to_blocks(blocks a, blocks b)
 {
-/*
   if( (a.size) != (b.size ) )
   {
     printf("singly_linked_list_swap_blocps_of_blocks_to_blocks: Lỗi! Kíc thước 2 blocks không tương thích.\n");
     exit(1);
   }
-*/
   int size_tmp;
   status_t stt;
   stt.stt=1;
@@ -97,12 +95,12 @@ status_t singly_linked_list_element_next(blocks current, blocks* next)
 {
   status_t stt;
   stt.stt=1;
-  // Di chuyen con tro current den blocks void* next;
+  // Di chuyển con trỏ current đến blocks void* next;
   void* temp;
   temp=current.adress;
   temp+=(current.size-sizeof(blocks));
   *next=*((blocks*)temp);
-  // Tra ve stt=0 neu khong co loi nao.
+  // Trả về stt=0 nếu không có lỗi nào.
   stt.stt=0;
   return stt;
 }
@@ -111,29 +109,29 @@ status_t singly_linked_list_bus_add_end(singly_linked_list_bus* a, blocks add)
 {
   if(add.adress == NULL)
     {
-      printf("Error! Blocks input!\n");
+      printf("singly_linked_list_bus_add_end: Lỗi! Blocks input có vấn đề, NULL!\n");
     }
   if( a->sizeofdata != ( add.size - sizeof(blocks)) )
     {
-      printf("Co loi khi them phan tu vao cuoi bus data! Kich co data blocks can them khong giong nhu kich co data trong bus!\n");
+      printf("singly_linked_list_bus_add_end: Có lỗi khi thêm phần tử vào cuối bus data! Kích cỡ data blocks cần thêm không giống như kích cỡ data trong bus!\n");
       exit(1);
     }
   status_t stt;
   stt.stt=1;
   blocks new;
   void* temp;
-  // Cap phat mot phan tu moi;
+  // Cấp phát mộtt phần tử mới;
   temp=malloc(a->sizeofdata+sizeof(blocks));
   if(temp == NULL)
     {
-      printf("Co loi khi cap phat bo nho!\n");
+      printf("singly_linked_list_bus_add_end: Có lỗi khi cấp phát bộ nhớ!\n");
       exit(1);
     }
   new.adress=temp;
   new.size=a->sizeofdata+sizeof(blocks);
 
-  // Hoan chinh phan tu;
-  sinhly_linked_list_copy_blocks_to_blocks(add,new);
+  // Hoàn chỉnh phần tử;
+  singly_linked_list_copy_blocks_to_blocks(add,new);
   temp+=a->sizeofdata;
   ((blocks*)temp)->adress=NULL;
   ((blocks*)temp)->size=a->sizeofdata+sizeof(blocks);
@@ -142,11 +140,11 @@ status_t singly_linked_list_bus_add_end(singly_linked_list_bus* a, blocks add)
       a->firts.adress=new.adress;
       a->end.adress=new.adress;
       a->sizeofbus++;
-      // Tra ve stt =0 neu khong co loi;
+      // Trả về stt =0 nếu không có lỗi;
       stt.stt=0;
       return stt;
     }
-  // Xac dinh blocks next cua end;
+  // Xác định blocks next của end;
   temp=a->end.adress;
   temp+=a->sizeofdata;
   (*((blocks*)temp)).adress=new.adress;
@@ -154,7 +152,7 @@ status_t singly_linked_list_bus_add_end(singly_linked_list_bus* a, blocks add)
   // Cap nhat lai bus;
   a->end.adress=new.adress;
   a->sizeofbus++;
-  // Tra ve stt =0 neu khong co loi nao.
+  // Trả về stt =0 nếu không có lỗi nào.
   stt.stt=0;
   return stt;
 }
@@ -163,7 +161,7 @@ status_t singly_linked_list_element(singly_linked_list_bus a, int chiso, blocks*
 {
   if(chiso < 0 || chiso > (a.sizeofbus-1) )
     {
-      printf("Khong ton tai phan tu co chi so nhu yeu cau!\n");
+      printf("singly_linked_list_element: Không tồn tại phần tử có chỉ số như yêu cầu!\n");
       exit(1);
     }
   status_t stt;
@@ -181,7 +179,7 @@ status_t singly_linked_list_element(singly_linked_list_bus a, int chiso, blocks*
       singly_linked_list_element_next(curr,bl);
       curr=*bl;
     }
-  // Tra ve stt=0 neu khong co loi.
+  // Trả về stt=0 nếu không có lỗi.
   stt.stt=0;
   return stt;
 }
@@ -190,17 +188,17 @@ status_t singly_linked_list_offset_of_element(singly_linked_list_bus a, blocks b
 {
   if( bl.adress == NULL)
     {
-      printf("Warring!!!!\nWarring!!!!\nWarring!!!!\nWarring!!!!\nElement ptr == NULL\n");
+      printf("singly_linked_list_offset_of_element: Lỗi! Input NULL.\n");
       exit(1);
     }
   if((bl.size-sizeof(blocks)) != a.sizeofdata)
     {
-      printf("Warring! Size in blocks != Sizeofdata!\n");
+      printf("singly_linked_list_offset_of_element: Lỗi! Size của blocks khác Sizeofdata khai báo trong bus.\n");
       exit(1);
     }
   status_t stt;
   stt.stt=1;
-  // Cu gan cho current=current->next, den khi nao current == elemtn thi dung lai.
+  // Cứ gán cho current=current->next, đến khi nào current == element thì dừng lại.
   *offset=0;
   blocks temp;
   void* point;
@@ -217,7 +215,7 @@ status_t singly_linked_list_offset_of_element(singly_linked_list_bus a, blocks b
       temp=*((blocks*)point);
       *offset+=1;
     }
-  // Tra ve stt=0 neu khong co loi;
+  // Trả về stt=0 nếu không có lỗi;
   stt.stt=0;
   return stt;
 }
@@ -227,12 +225,12 @@ status_t singly_linked_list_seek(singly_linked_list_bus a, blocks *current, char
 {
   if(huong != '<' && huong!= '>')
     {
-      printf("Warring!!!!\nWarring!!!!\nWarring!!!!\nWarring!!!!\nHuong so voi offset bi sai!\n");
+      printf("singly_linked_list_seek: Lỗi! Hướng so với offset bị sai!\n");
       exit(1);
     }
   if(current->adress == NULL)
     {
-      printf("Warring!!!!\nWarring!!!!\nWarring!!!!\nWarring!!!!\nThe offset current == NULL\n");
+      printf("singly_linked_list_seek: Lỗi! Offset hiện tại == NULL!\n");
       exit(1);
     }
   status_t stt;
@@ -243,12 +241,12 @@ status_t singly_linked_list_seek(singly_linked_list_bus a, blocks *current, char
     {
       if( (sothutu-number_element) < 0)
 	{
-	  printf("Warring!!!!\nWarring!!!!\nWarring!!!!\nWarring!!!!\nOut control the bus data!\n");
+	  printf("singly_linked_list_seek: Lỗi! Ngoài tầm kiểm sóat của bus data!\n");
 	  exit(1);
 	}
       sothutu-=number_element;
       singly_linked_list_element(a,sothutu,current);
-      // Tra ve stt=0 neu khong co loi;
+      // Trả về stt=0 nếu không có lỗi;
       stt.stt=0;
       return stt;
     }
@@ -256,16 +254,16 @@ status_t singly_linked_list_seek(singly_linked_list_bus a, blocks *current, char
     {
       if( (sothutu + number_element) >= a.sizeofdata)
 	{
-	  printf("Warring!!!!!\nWarring!!!!\nWarring!!!!\nWarring!!!!\nOut control the bus data!\n");
+	  printf("singly_linked_list_seek: Lỗi! Ngoài tầm kiểm sóat của bus data!\n");
 	  exit(1);
 	}
       sothutu+=number_element;
       singly_linked_list_element(a,sothutu,current);
-      // Tra ve stt =0 neu khong co loi;
+      // Trả về stt =0 nếu không có lỗi;
       stt.stt=0;
       return stt;
     }
-  // Tra ve stt=0 neu khong co loi;
+  // Trả về stt=0 nếu không có lỗi;
   stt.stt=0;
   return stt;
 }
@@ -274,18 +272,17 @@ status_t singly_linked_list_linked_blocks_and_blocks(blocks nhat, blocks nhi)
 {
   if(nhat.size != nhi.size)
     {
-      printf("Size cua block thu nhat khac size cua blocks thu 2!!!!\n");
-      printf("Khong the gan blocks thu 2 vao sau blocks thu nhat duoc!!!!\n");
+      printf("singly_linked_list_linked_blocks_and_blocks: Lỗi! Size của block thứ nhất khác size của blocks thứ hai!\n");
       exit(1);
     }
   if(nhat.adress == NULL)
     {
-      printf("Blocks thu nhat co adress = NULL!\n");
+      printf("singly_linked_list_linked_blocks_and_blocks: Lỗi! Blocks thứ 1 có adress = NULL!\n");
       exit(1);
     }
   if(nhi.adress == NULL)
     {
-      printf("Blocks thu hai co adress = NULL!\n");
+      printf("singly_linked_list_linked_blocks_and_blocks: Lỗi! Blocks thứ 2 có adress = NULL!\n");
       exit(1);
     }
   status_t stt;
@@ -302,12 +299,12 @@ status_t singly_linked_list_delete_current_blocks(singly_linked_list_bus* a, blo
 {
   if(curr->adress == NULL)
     {
-      printf("Blocks current co adress = NULL!\n");
+      printf("singly_linked_list_delete_current_blocks: Lỗi! Blocks current có adress = NULL!\n");
       exit(1);
     }
   if(a->sizeofdata != (curr->size - sizeof(blocks)))
     {
-      printf("Size data khai bao trong Bus khong khop voi size data trong current!\n");
+      printf("singly_linked_list_delete_current_blocks: Lỗi! Size data khai báo trong Bus không khớp với size data trong current!\n");
       exit(1);
     }
   status_t stt;
@@ -352,22 +349,22 @@ status_t singly_linked_list_insert_prew_current_blocks(singly_linked_list_bus* a
   int tt;
   if(curr.adress == NULL)
     {
-      printf("Blocks current co adress = NULL!\n");
+      printf("singly_linked_list_insert_prew_current_blocks: Lỗi! Blocks current có adress = NULL!\n");
       exit(1);
     } 
   if(add.adress == NULL)
     {
-      printf("Blocks can them vao co adress = NULL!\n");
+      printf("singly_linked_list_insert_prew_current_blocks: Lỗi! Blocks cần thêm vào có adress = NULL!\n");
       exit(1);
     }
   if(curr.size != (a->sizeofdata +sizeof(blocks)))
     {
-      printf("Kich thuoc du lieu blocks current khong tuong thich voi bus du lieu!\n");
+      printf("singly_linked_list_insert_prew_current_blocks: Lỗi! Kich thuoc du lieu blocks current khong tuong thich voi bus du lieu!\n");
       exit(1);
     }
   if(add.size != (a->sizeofdata + sizeof(blocks)) )
     {
-      printf("Blocks can insert co kich thuoc du lieu khong tuong thich voi bus du lieu!\n");
+      printf("singly_linked_list_insert_prew_current_blocks: Lỗi! Blocks cần insert có kích thước dữ liệu không tương thích với bus dữ liệu.\n");
       exit(1);
     }
   status_t stt;
@@ -378,10 +375,10 @@ status_t singly_linked_list_insert_prew_current_blocks(singly_linked_list_bus* a
   bl.adress=malloc(curr.size);
   if(bl.adress == NULL)
     {
-      printf("Co loi khi cap phat!\n");
+      printf("singly_linked_list_insert_prew_current_blocks: Lỗi! Có lỗi khi cấp phát phần tử động.\n");
       exit(1);
     }
-  sinhly_linked_list_copy_blocks_to_blocks(add,bl);
+  singly_linked_list_copy_blocks_to_blocks(add,bl);
   bl.adress+=(curr.size - sizeof(blocks));
   ((blocks*)(bl.adress))->size=curr.size;
   ((blocks*)(bl.adress))->adress=NULL;
@@ -408,22 +405,22 @@ status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a
 {
   if(curr.adress == NULL)
     {
-      printf("Blocks hien tai co adress = NULL!\n");
+      printf("singly_linked_list_insert_next_current_blocks: Lỗi! Blocks hiện tại có adress = NULL!\n");
       exit(1);
     }
   if(add.adress == NULL)
     {
-      printf("Blocks can chen co adress = NULL!\n");
+      printf("singly_linked_list_insert_next_current_blocks: Lỗi! Blocks cần chèn có adress = NULL!\n");
       exit(1);
     }
   if(curr.size != (a->sizeofdata + sizeof(blocks)))
     {
-      printf("Kich co dang ki trong blocks hien tai khong khop voi kich co da dang ki trong bus!\n");
+      printf("singly_linked_list_insert_next_current_blocks: Lỗi! Kích cỡ đăng kí trong blocks hiện tại không khớp với kích cỡ đã đăng kí trong bus!\n");
       exit(1);
     }
   if(curr.size != add.size)
     {
-      printf("Kich co du lieu blocks hien tai va blocks can chen khong tuong thich!\n");
+      printf("singly_linked_list_insert_next_current_blocks: Lỗi! Kích cỡ dữ liệu blocks hiện tại và blocks cần chèn không tương thích!\n");
       exit(1);
     }
   status_t stt;
@@ -433,10 +430,10 @@ status_t singly_linked_list_insert_next_current_blocks(singly_linked_list_bus* a
   bl.adress=malloc(curr.size);
   if(bl.adress == NULL)
     {
-      printf("Khong the cap phat bo nho dong duoc!\n");
+      printf("singly_linked_list_insert_next_current_blocks: Lỗi! Không thể cấp phát bộ nhớ động!\n");
       exit(1);
     }
-  sinhly_linked_list_copy_blocks_to_blocks(add,bl);
+  singly_linked_list_copy_blocks_to_blocks(add,bl);
   bl.adress+=(curr.size - sizeof(blocks));
   ((blocks*)(bl.adress))->adress=NULL;
   ((blocks*)(bl.adress))->size=curr.size;
@@ -467,7 +464,7 @@ status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char ham
 {
   if(a->sizeofdata != (add.size-sizeof(blocks)))
     {
-      printf("Singly_linked_list_insert_auto_sort: Sizeof data != sizeofdata in blocks add.\n");
+      printf("Singly_linked_list_insert_auto_sort: Sizeof data != sizeofdata trong blocks cần add.\n");
       exit(1);
     }
   status_t stt;
@@ -507,7 +504,6 @@ status_t singly_linked_list_insert_auto_sort(singly_linked_list_bus* a, char ham
   stt.stt=0;
   return stt;
 }
-
 
 status_t singly_linked_list_selection_sort(singly_linked_list_bus* a, char hamsosanh(blocks lef, blocks rig), char huong)
 {
@@ -557,7 +553,7 @@ status_t singly_linked_list_selection_sort(singly_linked_list_bus* a, char hamso
     for(conchay2=conchay1+1; conchay2 < a->sizeofbus; conchay2++)
     {
       singly_linked_list_element(*a, conchay2, &run);
-      if(hamsososanh(mark,run) == -1)
+      if(hamsosanh(mark,run) == -1)
       {
         mark=run;
       }
@@ -683,7 +679,7 @@ status_t singly_linkedlist_printf_from_t1_to_t2(singly_linked_list_bus a, int t1
   stt.stt =1;
   if(a.sizeofbus == 0)
   {
-    printf("Danh sách rỗng.\n");
+    printf("singly_linkedlist_printf_from_t1_to_t2: Lỗi! Danh sách rỗng.\n");
     stt.stt=0;
     return stt;
   }
