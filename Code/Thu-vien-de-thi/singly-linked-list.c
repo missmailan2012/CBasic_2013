@@ -314,7 +314,7 @@ status_t singly_linked_list_delete_current_blocks(singly_linked_list_bus* a, blo
   t.size = curr->size;
   if(t.adress == (a->firts).adress)
     {
-      singly_linked_list_seek( *a,&(a->firts), '>', 1);
+      singly_linked_list_element_next(a->firts,&(a->firts));
       free(curr->adress);
       curr->adress=NULL;
       // Update bus
@@ -738,7 +738,7 @@ status_t singly_linked_list_repawn(singly_linked_list_bus* a)
   return stt;
 }
 
-status_t linked_list_destroi_all_bus(singly_linked_list_bus* a)
+status_t singly_linked_list_destroi_all_bus(singly_linked_list_bus* a)
 {
   if(a == NULL)
   {
