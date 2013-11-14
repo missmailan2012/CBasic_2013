@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct
+{
+  void* pBlocksData;
+  int nSizeOfData;
+}TContainer;
+
+typedef struct
+{
+  void* pNext;
+  TContainer data;
+}TNode;
+
+typedef struct
+{
+  int nNumberOfNode;
+  void* firts;
+  void* end;
+}TSLinkedList;
+
