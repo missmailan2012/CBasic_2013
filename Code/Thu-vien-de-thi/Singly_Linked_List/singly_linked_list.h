@@ -26,31 +26,31 @@ typedef struct
 // 2-Cac toan tu;
 
 //++++ 2-1 void* new
-
 //-------- 2-1-1 void* newquick
-void* newquickContainer();
-void* newquickNode();
+boolean checkSizeIsTrue(int nSize); // できます
+boolean checkPointIsNull(void* p); // できます
+void* newblocks(int nSizeBlocks); // できます
+void* newquickContainer(); // できます
+void* newquickNode(); // できます
 
 //-------- 2-1-2 void* newfull
-void* newfullContainer(int);
-void* newfullNode(int);
+void* newfullContainer(int nSizeOfData); // できます
+void* newfullNode(int); // できます
 
-//-------- 2-1-3 void* newblocks
-void* newblocks(int);
+
 
 //++++ 2-2 void delete
 
 //-------- 2-2-1 void deletequick
-void deletequickContainer(void** pContainer);
-void deletequickNode(void*** pNode);
+void deletequickContainer(void** pContainer); // できます
+void deletequickNode(void*** pNode); // できます
 
 //-------- 2-2-2 void deletefull
-void deletefullContainer(void** pContainer);
-void deletefullNode(void** pNode);
+void deletefullContainer(void** pContainer); // できます
+void deletefullNode(void** pNode); // できます
 
 //++++ 2-3 boolean check
-boolean checkSizeOfData(int nSizeOfData);
-boolean checkPointIsNull(void* p);
+
 
 // 3-Cac ham;
 //++++ 3-0 Cac ham so cap
