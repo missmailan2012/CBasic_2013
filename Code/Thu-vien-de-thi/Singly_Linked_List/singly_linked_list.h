@@ -17,6 +17,7 @@ typedef struct
 typedef struct
 {
   int nNumberOfNode;
+  int nSizeOfData;
   void* pFirts;
   void* pEnd;
 }TSLinkedList;
@@ -39,7 +40,7 @@ void* newFullContainer(int nSizeOfData); //
 void* newFullNode(int); // 
 
 void deleteQuickContainer(void** pContainer); // 
-void deleteQuickNode(void*** pNodeDelete); // 
+void deleteQuickNode(void** pNodeDelete); // 
 
 void deleteFullContainer(void** pContainer); // 
 void deleteFullNode(void** pNodeDelete); // 
