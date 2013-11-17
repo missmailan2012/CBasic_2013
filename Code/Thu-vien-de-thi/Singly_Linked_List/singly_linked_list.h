@@ -2,8 +2,6 @@
 #include<stdlib.h>
 #include<string.h>
 
-
-// 1-Cau truc du lieu;
 typedef struct
 {
   void* pBlocksData;
@@ -13,106 +11,86 @@ typedef struct
 typedef struct
 {
   void* pNext;
-  TContainer data;
+  TContainer memberData;
 }TNode;
 
 typedef struct
 {
   int nNumberOfNode;
-  void* firts;
-  void* end;
+  void* pFirts;
+  void* pEnd;
 }TSLinkedList;
 
 enum {false, true};
 typedef char boolean;
 
 
-// 2-Cac toan tu;
+boolean sizeIsTrue(int nSize); //
+boolean sizeIsFalse(int nSize); //
 
-//++++ 2-1 void* new
-//-------- 2-1-1 void* newquick
-boolean sizeIsTrue(int nSize); // できます
-boolean sizeIsFalse(int nSize);
+boolean pointIsNull(void* p); // 
+boolean pointNotNull(void* p); //
 
-boolean pointIsNull(void* p); // できます
-boolean pointNotNull(void* p);
+void* newBlocks(int nSizeBlocks); // 
+void* newQuickContainer(); //
+void* newQuickNode(); // 
 
-void* newBlocks(int nSizeBlocks); // できます
-void* newQuickContainer(); // できます
-void* newQuickNode(); // できます
+void* newFullContainer(int nSizeOfData); // 
+void* newFullNode(int); // 
 
-//-------- 2-1-2 void* newfull
-void* newFullContainer(int nSizeOfData); // できます
-void* newFullNode(int); // できます
+void deleteQuickContainer(void** pContainer); // 
+void deleteQuickNode(void*** pNodeDelete); // 
 
+void deleteFullContainer(void** pContainer); // 
+void deleteFullNode(void** pNodeDelete); // 
 
+boolean containerIsReady(void* pContainer); //
+boolean containerNotReady(void* pContainer); //
 
-//++++ 2-2 void delete
+boolean nodeIsReady(void* pNode); //
+boolean nodeNotReady(void* pNode); //　
 
-//-------- 2-2-1 void deletequick
-void deleteQuickContainer(void** pContainer); // できます
-void deleteQuickNode(void*** pNode); // できます
+boolean containerIsSyncNode(void* pContainer, void* pNode); // 
+boolean containerNotSyncNode(void* pContainer, void* pNode); //　
 
-//-------- 2-2-2 void deletefull
-void deleteFullContainer(void** pContainer); // できます
-void deleteFullNode(void** pNode); // できます
+boolean nodeIsSyncNode(void* pNode1, void* pNode2); // 
+boolean nodeNotSyncNode(void* pNode1, void* pNode2); //
 
-//++++ 2-3 boolean check
+boolean nodeIsSyncSLinkedList(void* pNode, TSLinkedList sll); // 
+boolean nodeNotSyncSLinkedList(void* pNode, TSLinkedList sll); //　
 
+boolean containerIsSyncSLinkedList(void* pContainer, TSLinkedList sll); // 
+boolean containerNotSyncSLinkedList(void* pContainer, TSLinkedList sll); //　
 
-// 3-Cac ham;
-//++++ 3-0 Cac ham so cap
+boolean containerIsSyncContainer(void* pContainer1, void* pContainer2); // 
+boolean containerNotSyncContainer(void* pContainer1, void* pContainer2); // 
 
-boolean containerIsReady(void* pContainer); // できます
-boolean containerNotReady(void* pContainer); //　できます
+void cpyBlocksToBlocks(void* pBlocks1, void* pBlocks2, int nSizeOfBlocks); //
 
-boolean nodeIsReady(void* node); //　できます
-boolean nodeNotReady(void* node); //　できます
+void syncNodeToNode(void* pNode1, void* pNode2); // 
+void syncContainerToContainer(void* pContainer1, void* pContainer2); // 
+void syncContainerToNode(void* pContainer, void* pNode); // 
+void syncNodeToContainer(void* pNode, void* pContainer); //
 
-boolean containerIsSyncNode(void* container, void* node); // できます
-boolean containerNotSyncNode(void* container, void node); //　できます
+void linkedNodeToNode(void* pNode1, void* pNode2); //
 
-boolean nodeIsSyncNode(void* node1, void* node2); // できます
-boolean nodeNotSyncNode(void* node1, void* node2); //　できます
+void* elementi(int i, TSLinkedList sll); //　
+void* prewCurr(void* pCurr, TSLinkedList sll); // 
+void* nextCurr(void* pCurr, TSLinkedList sll); // 
 
-boolean nodeIsSyncSLinkedList(void* node, TSLinkedList sll); // できます
-boolean nodeNotSyncSLinkedList(void* node, TSLinkedList sll); //　できます
+void* newFullNodeForAdd(void* pContainerAdd); // 
 
-boolean containerIsSyncSLinkedList(void* container, TSLinkedList sll); // できます
-boolean containerNotSyncSLinkedList(void* container, TSLinkedList sll); //　できます
+void newSLinkedList(int nSizeOfData, TSLinkedList* pSll); // 
 
-boolean containerIsSyncContainer(void* container1, void* container2); // できます
-boolean containerNotSyncContainer(void* container1, void* container2); // できます
-void cpyBlocksToBlocks(void* blocks1, void* blocks2, int nSizeOfBlocks); // できます
-void syncNodeToNode(void* node1, void* node2); // できます
-void syncContainerToContainer(void* container1, void* container2); // できます
-void syncContainerToNode(void* pContainer, void* pNode); // できます
-void syncNodeToContainer(void* pNode, void* pContainer); // できます
-void linkedNodeToNode(void* pNode1, void* pNode2); // できます
-void* elementi(int i, TSLinkedList pSll); //　できます
-void* prewCurr(void* pCurr, TSLinkedList sll); // できます
-void* nextCurr(void* pCurr, TSLinkedList sll); // できます
-void* newFullNodeForAdd(void* pContainerAdd); // できます
+void addFirtsSLinkedList(void* pContainerAdd, TSLinkedList* pSll); // 
+void addEndSLinkedList(void* pContainerAdd, TSLinkedList* pSll); // 
+void addNextCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll); // 
+void addPrewCurrSLinkedList(void* containerAdd, void* curr, TSLinkedList* a); // 
 
+void deleteFullFirtsSLinkedList(TSLinkedList* pSll); // 
+void deleteFullEndSLinkedList(TSLinkedList* pSll); // 
+void deleteFullCurr(void** pCurr, TSLinkedList* pSll); // 
+void deleteFullPrewCurr(void* pCurr, TSLinkedList* pSll); //　
+void deleteFullNextCurr(void* pCurr, TSLinkedList* pSll); // 
+void deleteFullSLinkedList(TSLinkedList* pSll); //　
 
-
-//++++ 3-1 void newSLinkedList
-void newSLinkedList(int nSizeOfData, TSLinkedList* pSll); // できます
-
-//++++ 3-2 void add
-void addFirtsSLinkedList(void* pContainerAdd, TSLinkedList* pSll); // できます
-void addEndSLinkedList(void* pContainerAdd, TSLinkedList* pSll); // できます
-void addNextCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll); // できます
-void addPrewCurrSLinkedList(void* containerAdd, void* curr, TSLinkedList* a); // できます
-
-//++++ 3-3 void delete
-
-//-------- 3-3-1 void deletequick
-//-------- 3-3-2 void deletefull
-void deleteFullFirtsSLinkedList(TSLinkedList* pSll); // できます
-void deleteFullEndSLinkedList(TSLinkedList* pSll); // できます
-void deleteFullCurr(void* pCurr, TSLinkedList* pSll); // できます
-void deleteFullPrewCurr(void* pCurr, TSLinkedList* pSll); //　できます
-void deleteFullNextCurr(void* pCurr, TSLinkedList* pSll); // できます
-void deleteFullSLinkedList(TSLinkedList* pSll); //　できます
-//++++ 3-4 void sortSLinkedList

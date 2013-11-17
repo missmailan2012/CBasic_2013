@@ -1,24 +1,21 @@
 #include "singly_linked_list.h"
 
-
-//-------- 2-1-1 void* newQuick
 boolean sizeIsTrue(int nSize)
 {
   if(nSize >=1)
     {
       return true;
     }
-  MSG("checkSize: Kíc thước Size không hợp lí!");
+  MSG("sizeIsTrue(int nSize): Cảnh báo: kích thước nSize không hợp lí!");
   return false;
 }
-
 boolean sizeIsFalse(int nSize)
 {
   if(true == sizeIsTrue(nSize))
     {
       return false;
     }
-  MSG("sizeIsFalse(int nSize): Cảnh báo: Kích thước nSize không hợp lí!");
+  MSG("sizeIsFalse(int nSize): Cảnh báo: kích thước nSize không hợp lí!");
   return true;
 }
 
@@ -31,7 +28,6 @@ boolean pointIsNull(void* p)
   MSG("pointIsNull(void* p): Cảnh báo: p NULL!");
   return true;
 }
-
 boolean pointNotNull(void* p)
 {
   if(p == NULL)
@@ -44,144 +40,136 @@ boolean pointNotNull(void* p)
 
 void* newBlocks(int nSizeBlocks)
 {
-  if(!checkSizeIsTrue(nSizeBlocks))
+  if(true == sizeIsFalse(nSizeBlocks))
     {
-      MSG("newBlocks: Kích thước blocks không hợp lệ!");
+      MSG("newBlocks(int nSizeBlocks): Cảnh báo: kích thước nSizeBlocks không hợp lệ!");
     }
-  void* newblocks;
-  newblocks=malloc(sizeof(char)*nSizeBlocks);
-  if(newblocks == NULL)
+  void* pNewBlocksTemp;
+  pNewBlocksTemp=malloc(sizeof(char)*nSizeBlocks);
+  if(pNewBlocksTemp == NULL)
     {
       MSG("newBlocks(int nSizeBlocks): Cảnh báo: không thể cấp phát bộ nhớ động được!");
       exit(1);
     }
-  return newblocks;
+  return pNewBlocksTemp;
 }
-
 void* newQuickContainer()
 {
-  void* newContainer;
-  newContainer=newBlocks(sizeof(TContainer));
-  return newContainer;
+  void* pNewContainerTemp;
+  pNewContainerTemp=newBlocks(sizeof(TContainer));
+  return pNewContainerTemp;
 }
-
 void* newQuickNode()
 {
-  void* newNode;
-  newNode=newBlocks(sizeof(TNode));
-  return newNode;
+  void* pNewNodeTemp;
+  pNewNodeTemp=newBlocks(sizeof(TNode));
+  return pNewNodeTemp;
 }
-
-//-------- 2-1-2 void* newFull
 
 void* newFullContainer(int nSizeOfData)
 {
-  if(!checkSizeIsTrue(nSizeOfData))
+  if(true ==sizeIsFalse(nSizeOfData))
     {
-      MSG("newFullContainer: Kích thước data không hợp lệ!");
+      MSG("newFullContainer(int nSizeOfData): Cảnh báo: kích thước nSizeOfData không hợp lệ!");
       exit(1);
     }
-  void* blocksData;
-  blocksData=newBlocks(nSizeOfData);
-  void* newContainer;
-  newContainer=newQuickContainer();
-  ((TContainer*)newContainer)->pBlocksData=blocksData;
-  ((TContainer*)newContainer)->nSizeOfData=nSizeOfData;
-  return newContainer;
+  void* pBlocksDataTemp;
+  pBlocksDataTemp=newBlocks(nSizeOfData);
+  void* pNewContainerTemp;
+  pNewContainerTemp=newQuickContainer();
+  ((TContainer*)pNewContainerTemp)->pBlocksData=pBlocksDataTemp;
+  ((TContainer*)pNewContainerTemp)->nSizeOfData=nSizeOfData;
+  return pNewContainerTemp;
 }
-
 void* newFullNode(int nSizeOfData)
 {
-  if(!checkSizeIsTrue(nSizeOfData))
+  if(true == sizeIsFalse(nSizeOfData))
     {
-      MSG("newFullNode: Kich thuoc Data khong hop le!");
+      MSG("newFullNode(int nSizeOfData): Cảnh báo: nSizeOfData không hợp lệ!!");
       exit(1);
     }
-  void* blocksData;
-  blocksData=newBlocks(nSizeOfData);
-  void* newNode;
-  newNode=newQuickNode();
-  (((TNode*)newNode)->data).pBlocksData=blocksData;
-  (((TNode*)newNode)->data).nSizeOfData=nSizeOfData;
-  ((TNode*)newNode)->pNext=NULL;
-  return newNode;
+  void* pBlocksDataTemp;
+  pBlocksDataTemp=newBlocks(nSizeOfData);
+  void* pNewNodeTemp;
+  pNewNodeTemp=newQuickNode();
+  (((TNode*)pNewNodeTemp)->memberData).pBlocksData=pBlocksDataTemp;
+  (((TNode*)pNewNodeTemp)->memberData).nSizeOfData=nSizeOfData;
+  ((TNode*)pNewNodeTemp)->pNext=NULL;
+  return pNewNodeTemp;
 }
 
-void deleteQuickContainer(void** pContainer)
+void deleteQuickContainer(void** pContainerDelete)
 {
-  if(checkPointIsNull(pContainer))
+  if(true == pointIsNull(pContainerDelete))
     {
-      MSG("deleteQuickContainer: Đầu vào void** pContainer: pContainer = NULL!");
+      MSG("deleteQuickContainer(void** pContainerDelete): Cảnh báo: pContainer = NULL!");
       exit(1);
     }
-  if(checkPointIsNull(*pContainer))
+  if(true == pointIsNull(*pContainerDelete))
     {
-      MSG("deleteQuickContainer: Đầu vào void** pContainer: *pContainer = NULL!");
+      MSG("deleteQuickContainer(void** pContainerDelete): Cảnh báo: *pContainer = NULL!");
       exit(1);
     }
-  free(*pContainer);
-  *pContainer=NULL;
+  free(*pContainerDelete);
+  *pContainerDelete=NULL;
 }
-
-void deleteQuickNode(void** pNode)
+void deleteQuickNode(void** pNodeDelete)
 {
-  if(checkPointIsNull(pNode))
+  if(true == pointIsNull(pNodeDelete))
     {
-      MSG("deleteQuickNode: Đầu vào void** pNode: pNode = NULL!");
+      MSG("deleteQuickNode(void** pNodeDelete): Cảnh báo: pNodeDelete = NULL!");
       exit(1);
     }
-  if(checkPointIsNull(*pNode))
+  if(true == pointIsNull(*pNodeDelete))
     {
-      MSG("deleteQuickNode: Đầu vào void** pNode: *pNode = NULL!");
+      MSG("deleteQuickNode(void** pNodeDelete): Cảnh báo: *pNodeDelete = NULL!");
       exit(1);
     }
-  free(*pNode);
-  *pNode=NULL;
+  free(*pNodeDelete);
+  *pNodeDelete=NULL;
 }
 
-void deleteFullContainer(void** pContainer)
+void deleteFullContainer(void** pContainerDelete)
 {
-  if(checkPointIsNull(pContainer))
+  if(true == pointIsNull(pContainerDelete))
     {
-      MSG("deleteFullContainer: Đầu vào void** pContainer: pContainer = NULL!");
+      MSG("deleteFullContainer(void** pContainerDelete): Cảnh báo: pContainerDelete = NULL!");
       exit(1);
     }
-  if(checkPointIsNull(*pContiner))
+  if(true == pointIsNull(*pContainerDelete))
     {
-      MSG("deleteFullContainer: Đầu vào void** pContainer: *pContainer = NULL!");
+      MSG("deleteFullContainer(void** pContainerDelete): Cảnh báo: *pContainerDelete = NULL!");
       exit(1);
     }
-  free((*pContainer)->pBlocksData);
-  deleteQuick(pContainer);
+  free(((TContainer*)(*pContainerDelete))->pBlocksData);
+  deleteQuickContainer(pContainerDelete);
 }
-
-void deleteFullNode(void** pNode)
+void deleteFullNode(void** pNodeDelete)
 {
-  if(checkPointIsNull(pNode))
+  if(true == pointIsNull(pNodeDelete))
     {
-      MSG("deleteFullNode: Đầu vào void** pNode: pNode = NULL!");
+      MSG("deleteFullNode(void** pNodeDelete): Cảnh báo: pNodeDelete = NULL!");
       exit(1);
     }
-  if(checkPointIsNull(*pNode))
+  if(true == pointIsNull(*pNodeDelete))
     {
-      MSG("deleteFullNode: Đầu vào void** pNode: *pNode = NULL!");
+      MSG("deleteFullNode(void** pNodeDelete): Cảnh báo: *pNode = NULL!");
       exit(1);
     }
-  free(((*pNode)->data).pBlocksData);
-  deleteQuickNode(pNode);
+  free((((TNode*)(*pNodeDelete))->memberData).pBlocksData);
+  deleteQuickNode(pNodeDelete);
 }
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 boolean containerIsReady(void* pContainer)
 {
-  if(pointIsNull(pContainer))
+  if(true == pointIsNull(pContainer))
     {
-      MSG("checkContainerReady(void* pContainer): container Null!");
+      MSG("checkContainerReady(void* pContainer): Cảnh báo: pContainer Null!");
       return false;
     }
-  if(pointIsNull(pContainer->pBlocksData))
+  if(true == pointIsNull( (pContainer->pBlocksData) ))
     {
-      MSG("checkContainerReady(void* pContainer): pContainer->pBlocksData Null!");
+      MSG("checkContainerReady(void* pContainer): Cảnh báo: pContainer->pBlocksData Null!");
       return false;
     }
   return true;
@@ -196,80 +184,79 @@ boolean containerNotReady(void* pContainer)
   return true;
 }
 
-
-boolean nodeIsReady(void* node)
+boolean nodeIsReady(void* pNode)
 {
-  if(true == pointIsNull(node))
+  if(true == pointIsNull(pNode))
     {
-      MSG("nodeIsReady(void* node): node Null!");
+      MSG("nodeIsReady(void* pNode): Cảnh báo: pNode Null!");
       return false;
     }
-  if(true == containerNotReady(&(node->data)))
+  if(true == containerNotReady(&(pNode->memberData)))
     {
-      MSG("nodeIsReady(void* node): node->data chưa sẵn sàng!");
+      MSG("nodeIsReady(void* pNode): pNode->memberData chưa sẵn sàng!");
       return false;
     }
   return true;
 }
-boolean nodeNotReady(void* node)
+boolean nodeNotReady(void* pNode)
 {
-  if(true == nodeIsReady(node))
+  if(true == nodeIsReady(pNode))
     {
       return false;
     }
-  MSG("nodeNotReady(void* node): Cảnh báo: node chưa sẵn sàng!");
-  return true;
-}
-
-boolean containerIsSyncNode(void* container, void* node)
-{
-  if(true == containerNotReady(container))
-    {
-      MSG("containerIsSyncNode(void* container, void* node): Cảnh báo: container chưa sẵn sàng!");
-      return false;
-    }
-  if(true == nodeNotReady(node))
-    {
-      MSG("containerIsSyncNode(void* container, void* node): Cảnh báo: node chưa sẵn sàng!");
-      return false;
-    }
-  if(container.nSizeOfData != (node->data).nSizeOfData )
-    {
-      MSG("containerIsSyncNode(void* container, void* node): Cảnh báo: nSizeOfData không khớp!");
-      return false;
-    }
-  return true;
-}
-boolean containerNotSyncNode(void* container, void* node)
-{
-  if(true == containerIsSyncNode(container, node))
-    {
-      return false;
-    }
-  MSG("containerNotSyncNode(void* container, void* node): Cảnh báo: container không tương thích với node!");
+  MSG("nodeNotReady(void* pNode): Cảnh báo: node chưa sẵn sàng!");
   return true;
 }
 
-boolean nodeIsSyncNode(void* node1, void* node2)
+boolean containerIsSyncNode(void* pContainer, void* pNode)
 {
-  if(true == nodeNotReady(node1))
+  if(true == containerNotReady(pContainer))
     {
-      MSG("nodeIsSyncNode(void* node1, void* node2): Cảnh báo: node1 chưa sẵn sàng!");
+      MSG("containerIsSyncNode(void* pContainer, void* pNode): Cảnh báo: pContainer chưa sẵn sàng!");
       return false;
     }
-  if(true == nodeNotReady(node2))
+  if(true == nodeNotReady(pNode))
     {
-      MSG("nodeIsSyncNode(void* node1, void* node2): Cảnh báo: node2 chưa sẵn sàng!");
+      MSG("containerIsSyncNode(void* pContainer, void* pNode): Cảnh báo: pNode chưa sẵn sàng!");
       return false;
     }
-  if((node1->data).nSizeOfData != (node2->data).nSizeOfData)
+  if( (pContainer->nSizeOfData) != ((pNode->memberData).nSizeOfData) )
     {
-      MSG("nodeIsSyncNode(void* node1, void* node2): Cảnh báo: kích thước nSizeOfData 2 node không khớp nhau!");
+      MSG("containerIsSyncNode(void* pContainer, void* pNode): Cảnh báo: nSizeOfData trong pContainer và nSizeOfData trong pNode không khớp!");
       return false;
     }
   return true;
 }
-boolean nodeNotSyncNode(void* node1, void* node2)
+boolean containerNotSyncNode(void* pContainer, void* pNode)
+{
+  if(true == containerIsSyncNode(pContainer, pNode))
+    {
+      return false;
+    }
+  MSG("containerNotSyncNode(void* pContainer, void* pNode): Cảnh báo: pContainer không tương thích với pNnode!");
+  return true;
+}
+
+boolean nodeIsSyncNode(void* pNode1, void* pNode2)
+{
+  if(true == nodeNotReady(pNode1))
+    {
+      MSG("nodeIsSyncNode(void* pNode1, void* pNode2): Cảnh báo: pNode1 chưa sẵn sàng!");
+      return false;
+    }
+  if(true == nodeNotReady(pNode2))
+    {
+      MSG("nodeIsSyncNode(void* pNode1, void* pNode2): Cảnh báo: pNode2 chưa sẵn sàng!");
+      return false;
+    }
+  if( ((pNode1->memberData).nSizeOfData) != ((pNode2->memberData).nSizeOfData) )
+    {
+      MSG("nodeIsSyncNode(void* pNode1, void* pNode2): Cảnh báo: kích thước nSizeOfData pNode1 và nSizeOfData trong pNode2 không khớp nhau!");
+      return false;
+    }
+  return true;
+}
+boolean nodeNotSyncNode(void* pNode1, void* pNode2)
 {
   if(true == nodeIsSyncNode(node1, node2))
     {
@@ -279,84 +266,84 @@ boolean nodeNotSyncNode(void* node1, void* node2)
   return true;
 }
 
-boolean nodeIsSyncSLinkedList(void* node, TSLinkedList sll)
+boolean nodeIsSyncSLinkedList(void* pNode, TSLinkedList sll)
 {
-  if(true == nodeNotReady)
+  if(true == nodeNotReady(pNode))
     {
-      MSG("nodeIsSyncSLinkedList(void* node, TSLinkedList sll): Cảnh báo: node chưa sẵn sàng!");
+      MSG("nodeIsSyncSLinkedList(void* pNode, TSLinkedList sll): Cảnh báo: pNode chưa sẵn sàng!");
       return false;
     }
-  if((node->data).nSizeOfData != ssl.nSizeOfData)
+  if( ((pNode->memberData).nSizeOfData) != sll.nSizeOfData)
     {
-      MSG("nodeIsSyncSLinkedList(void* node, TSLinkedList ssl): Cảnh báo: nSizeOfData trong node không khớp với nSizeOfData trong sll!");
+      MSG("nodeIsSyncSLinkedList(void* pNode, TSLinkedList ssl): Cảnh báo: nSizeOfData trong pNode không khớp với nSizeOfData trong sll!");
       return false;
     }
   return true;
 }
-boolean nodeNotSyncSLinkedList(void* node, TSLinkedList sll)
+boolean nodeNotSyncSLinkedList(void* pNode, TSLinkedList sll)
 {
-  if(true == nodeIsSyncSLinkedList(node, sll))
+  if(true == nodeIsSyncSLinkedList(pNode, sll))
     {
       return false;
     }
-  MSG("nodeNotSyncSLinkedList(void* ndoe, TSLinkedList ssl): Cảnh báo: node không tương thích với SLinkedList!");
-  return true;
-}
-
-boolean containerIsSyncSLinkedList(void* container, TSLinkedList sll)
-{
-  if(true == containerNotReady(container))
-    {
-      MSG("containerIsSyncSLinkedList(void* container, TSLinkedList sll): Cảnh báo: container chưa sẵn sàng!");
-      return false;
-    }
-  if(container->nSizeOfData != ssl.nSizeOfData)
-    {
-      MSG("containerIsSyncSLinkedList(void* container, TSLinkedList sll): Cảnh báo: kích cỡ nSizeOfData trong container không khớp với nSizeOfData trong sll!");
-      return false;
-    }
-  return true;
-}
-boolean containerNotSyncSLinkedList(void* container, TSLinkedList sll)
-{
-  if(true == containerIsSyncSLinkedList(container, ssl))
-    {
-      return false;
-    }
-  MSG("containerNotSyncSLinkedList(void* container, TSLinked sll): Cảnh báo: container không tương thích với sll!");
+  MSG("nodeNotSyncSLinkedList(void* pNode, TSLinkedList sll): Cảnh báo: pNode không tương thích với SLinkedList!");
   return true;
 }
 
-boolean containerIsSyncContainer(void* container1, void* container2)
+boolean containerIsSyncSLinkedList(void* pContainer, TSLinkedList sll)
 {
-  if(true == containerNotReady(container1))
+  if(true == containerNotReady(pContainer))
     {
-      MSG("containerIsSyncContainer(void* container1, void* container2): Cảnh báo: container1 chưa sẵn sàng!");
+      MSG("containerIsSyncSLinkedList(void* pContainer, TSLinkedList sll): Cảnh báo: pContainer chưa sẵn sàng!");
       return false;
     }
-  if(true == containerNotReady(container2))
+  if( (pContainer->nSizeOfData) != sll.nSizeOfData)
     {
-      MSG("containerIsSyncContainer(void* container1, void* container2): Cảnh báo: container2 chưa sẵn sàng!");
-      return false;
-    }
-  if()
-    {
-      MSG("containerIsSyncContainer(void* container1, void* container2): Cảnh báo: kích thước nSizeOfData trong container1 không khớp với nSizeOfData trong container2!");
+      MSG("containerIsSyncSLinkedList(void* pContainer, TSLinkedList sll): Cảnh báo: kích cỡ nSizeOfData trong pContainer không khớp với nSizeOfData trong sll!");
       return false;
     }
   return true;
 }
-boolean containerNotSyncContainer(void* container1, void* container2)
+boolean containerNotSyncSLinkedList(void* pContainer, TSLinkedList sll)
 {
-  if(true == containerIsSyncContainer(container1, container2))
+  if(true == containerIsSyncSLinkedList(pContainer, sll))
     {
       return false;
     }
-  MSG("containerNotSyncContainer(void* container1, void* container2): Cảnh báo: container1 không tương thích với container2!");
+  MSG("containerNotSyncSLinkedList(void* pContainer, TSLinked sll): Cảnh báo: pContainer không tương thích với sll!");
   return true;
 }
 
-void cpyBlocksToBlocks(void* blocks1, void* blocks2, int nSizeOfBlocks)
+boolean containerIsSyncContainer(void* pContainer1, void* pContainer2)
+{
+  if(true == containerNotReady(pContainer1))
+    {
+      MSG("containerIsSyncContainer(void* pContainer1, void* pContainer2): Cảnh báo: pContainer1 chưa sẵn sàng!");
+      return false;
+    }
+  if(true == containerNotReady(pContainer2))
+    {
+      MSG("containerIsSyncContainer(void* pContainer1, void* pContainer2): Cảnh báo: pContainer2 chưa sẵn sàng!");
+      return false;
+    }
+  if( (pContainer1->nSizeOfData) != (pContainer2->nSizeOfData))
+    {
+      MSG("containerIsSyncContainer(void* pContainer1, void* pContainer2): Cảnh báo: kích thước nSizeOfData trong pContainer1 không khớp với nSizeOfData trong pContainer2!");
+      return false;
+    }
+  return true;
+}
+boolean containerNotSyncContainer(void* pContainer1, void* pContainer2)
+{
+  if(true == containerIsSyncContainer(pContainer1, pContainer2))
+    {
+      return false;
+    }
+  MSG("containerNotSyncContainer(void* pContainer1, void* pContainer2): Cảnh báo: pContainer1 không tương thích với pContainer2!");
+  return true;
+}
+
+void cpyBlocksToBlocks(void* pBlocks1, void* pBlocks2, int nSizeOfBlocks)
 {
   if(true == pointIsNull(pBlocks1))
     {
@@ -385,10 +372,10 @@ void syncNodeToNode(void* pNode1, void* pNode2)
 {
   if(true == nodeNotSyncNode(pNode1, pNode2))
     {
-      MSG("syncNodeToNode(void* pNode1, void* pNode2): Cảnh báo: node1 chưa tương thích với node2!");
+      MSG("syncNodeToNode(void* pNode1, void* pNode2): Cảnh báo: pNode1 chưa tương thích với pNode2!");
       exit(1);
     }
-  cpyBlocksToBlocks( (pNode1->data).pBlocksData, (pNode2->data).pBlocksData, (pNode1->data).nSizeOfData);
+  cpyBlocksToBlocks( (pNode1->memberData).pBlocksData, (pNode2->memberData).pBlocksData, (pNode1->memberData).nSizeOfData);
 }
 
 void syncContainerToContainer(void* pContainer1, void* pContainer2)
@@ -400,7 +387,7 @@ void syncContainerToContainer(void* pContainer1, void* pContainer2)
     }
   if(true == containerNotReady(pContainer2))
     {
-      MSG("syncContainerToContainer(void* pContainer1, pContainer2): Cảnh báo: pContainer2 chưa sẵn sàng!");
+      MSG("syncContainerToContainer(void* pContainer1, void* pContainer2): Cảnh báo: pContainer2 chưa sẵn sàng!");
       exit(1);
     }
   cpyBlocksToBlocks(pContainer1->pBlocksData, pContainer2->pBlocksData);
@@ -423,7 +410,7 @@ void syncContainerToNode(void* pContainer, void* pNode)
       MSG("syncContainerToNode(void* pContainer, void* pNode): Cảnh báo: pContainer không tương thích với pNode!");
       exit(1);
     }
-  cpyBlocksToBlocks(pContainer->pBlocksData, (pNode->data).pBlocksData, (pNode->data).nSizeOfData);
+  cpyBlocksToBlocks(pContainer->pBlocksData, (pNode->memberData).pBlocksData, (pNode->memberData).nSizeOfData);
 }
 
 void syncNodeToContainer(void* pNode, void* pContainer)
@@ -443,34 +430,34 @@ void syncNodeToContainer(void* pNode, void* pContainer)
       MSG("syncNodeToContainer(void* pNode, void* pContainer): Cảnh báo: pContainer không tương thích với pNode!");
       exit(1);
     }
-  cpyBlocksToBlocks((pNode->data).pBlocksData, pContainer->pBlocksData, (pNode->data).nSizeOfData);
+  cpyBlocksToBlocks((pNode->memberData).pBlocksData, pContainer->pBlocksData, (pNode->memberData).nSizeOfData);
 }
 
 void linkedNodeToNode(void* pNode1, void* pNode2)
 {
-  if(true == nodeNotSyncNode(node1, node2))
+  if(true == nodeNotSyncNode(pNode1, pNode2))
     {
-      MSG("linkedNodeToNode(void* pNode1, void* pNode2): Cảnh báo:pNode1 không tương thích với pNode2!");
+      MSG("linkedNodeToNode(void* pNode1, void* pNode2): Cảnh báo: pNode1 không tương thích với pNode2!");
       exit(1);
     }
-  pNode2->next=pNode1;
+  ((TNode*)pNode2)->next=pNode1;
 }
 
-void* elementi(TSLinkedList ssl, int i)
+void* elementi(int i, TSLinkedList sll)
 {
-  if( (i < 0) || (i >= ssl.nNumberOfNode))
+  if( (i < 0) || (i >= sll.nNumberOfNode))
     {
-      MSG("elementi(TSLinkedList ssl, int i): Cảnh báo: không tồn tại vị trí i!");
+      MSG("elementi(int i. TSLinkedList sll): Cảnh báo: không tồn tại vị trí i!");
       exit(1);
     }
-  void* element;
-  element=ssl.firts;
-  while(i>0)
+  void* pElementTemp;
+  pElementTemp=sll.firts;
+  while(i > 0)
     {
-      element=((TNode*)element)->next;
+      pElementTemp=((TNode*)pElementTemp)->next;
       i--;
     }
-  return element;
+  return pElementTemp;
 }
 
 void* prewCurr(void* pCurr, TSLinkedList sll)
@@ -495,24 +482,23 @@ void* prewCurr(void* pCurr, TSLinkedList sll)
       MSG("prewCurr(void* pCurr, TSLinkedList sll): Cảnh báo: Con trỏ pCurr không trỏ tới phần tử nào của SLinkedList!");
       exit(1);
     }
-  void* pPrew;
-  void* pRun;
-  run=sll.firts;
-  while(pRun != pPrew)
+  void* pPrewTemp;
+  void* pRunTemp;
+  pRunTemp=sll.firts;
+  while(pRunTemp != pPrewTemp)
     {
-      pPrew=pRun;
-      pRun=((TNode*)pPrew)->next;
-      if(pRun=pCurr)
+      pPrewTemp=pRunTemp;
+      pRunTemp=((TNode*)pPrewTemp)->next;
+      if(pRunTemp == pCurr)
 	{
-	  return pPrew;
+	  return pPrewTemp;
 	}
-      if(pRun=sll.end)
+      if(pRunTemp == sll.end)
 	{
 	  MSG("prewCurr(void* pCurr, TSLinkedList sll): Cảnh báo: Con trỏ pCurr không trỏ tới phần tử nào của SLinkedList!");
 	  exit(1);
 	}
     }
-  return pPrew;
 }
 
 void* nextCurr(void* pCurr, TSLinkedList sll)
@@ -537,62 +523,61 @@ void* nextCurr(void* pCurr, TSLinkedList sll)
       MSG("nextCurr(void* pCurr, TSLinkedList sll): Cảnh báo: pCurr không trỏ đến phần tử nào của SLinkedList!");
       exit(1);
     }
-  void* pNext;
-  void* pRun;
-  pRun=sll.firts;
-  pNext=((TNode*)pRun)->next;
-  while(pRun!= pCurr)
+  void* pNextTemp;
+  void* pRunTemp;
+  pRunTemp=sll.firts;
+  pNextTemp=((TNode*)pRunTemp)->next;
+  while(pRunTemp!= pCurr)
     {
-      pRun=pNext;
-      pNext=((TNode*)pRun)->next;
-      if(pRun == pCurr)
+      pRunTemp=pNextTemp;
+      pNextTemp=((TNode*)pRunTemp)->next;
+      if(pRunTemp == pCurr)
 	{
-	  return pNext;
+	  return pNextTemp;
 	}
-      if(pNext == sll.end)
+      if(pNextTemp == sll.end)
 	{
 	  MSG("nextCurr(void* pCurr, TSLinkedList sll): Cảnh báo: pCurr không trỏ đến phần tử nào của SLinkedList!");
 	  exit(1);
 	}
     }
-  return pNext;
 }
 
 void* newFullNodeToAdd(void* pContainerAdd)
 {
   if(true == containerNotReady(pContainerAdd))
     {
-      MSG("newFullNodeToAdd(void* pContainerAdd): Cảnh báo: pContainer chưa sẵn sàng!");
+      MSG("newFullNodeToAdd(void* pContainerAdd): Cảnh báo: pContainerAdd chưa sẵn sàng!");
       exit(1);
     }
-  void* newNodeTemp;
-  newNodeTemp=newFullNode(pContainerAdd->nSizeOfData);
-  syncContainerToNode(pContainerAdd, newNodeTemp);
-  return newNodeTemp;
+  void* pNewNodeTemp;
+  pNewNodeTemp=newFullNode(pContainerAdd->nSizeOfData);
+  syncContainerToNode(pContainerAdd, pNewNodeTemp);
+  return pNewNodeTemp;
 }
 
-void newSLinkedList(TSLinkedList* sll, int nSizeOfData)
+void newSLinkedList(int nSizeOfData, TSLinkedList* pSll)
 {
-  if(true == pointIsNull(sll))
+  if(true == pointIsNull(pSll))
     {
-      MSG("newSLinkedList(TSLinkedList* sll, int nSizeOfData): Cảnh báo: sll Null!");
+      MSG("newSLinkedList(int nSizeOfData, TSLinkedList* pSll): Cảnh báo: pSll Null!");
       exit(1);
     }
   if(true == sizeIsFalse(nSizeOfData))
     {
-      MSG("newSLinkedList(TSLinkedList* sll, int nSizeOfData): Cảnh báo: nSizeOfData không hợp lệ!");
+      MSG("newSLinkedList(int nSizeOfData, TSLinkedList* pSll): Cảnh báo: nSizeOfData không hợp lệ!");
       exit(1);
     }
-  sll->firts = sll->end = NULL;
-  sll->nSizeOfData=nSizeOfData;
-  sll->nNumberOfNode =0;
+  pSll->firts = pSll->end = NULL;
+  pSll->nSizeOfData=nSizeOfData;
+  pSll->nNumberOfNode =0;
 }
 
 void addFirtsSLinkedList(void* pContainerAdd, TSLinkedList* pSll)
 {
   if(true == containerNotReady(pContainerAdd))
     {
-      MSG("addFirtsSLinkedList(void* pContainerAdd, TSLinkedList* pSll): Cảnh báo: pContainer chưa sẵn sàng!");
+      MSG("addFirtsSLinkedList(void* pContainerAdd, TSLinkedList* pSll): Cảnh báo: pContainerAdd chưa sẵn sàng!");
       exit(1);
     }
   if(true == pointIsFull(pSll))
@@ -605,16 +590,16 @@ void addFirtsSLinkedList(void* pContainerAdd, TSLinkedList* pSll)
       MSG("addFirtsSLinkedList(void* pContainerAdd, TSLinkedList* pSll): Cảnh báo: pContainer và pSll không tương thích nhau!");
       exit(1);
     }
-  void* newNodeTemp;
-  newNodeTemp=newFullNodeToAdd(pContainerAdd);
+  void* pNewNodeTemp;
+  pNewNodeTemp=newFullNodeToAdd(pContainerAdd);
   if(0 == pSll->nNumberOfNode)
     {
-      pSll->firts=pSll->end=newNodeTemp;
+      pSll->firts=pSll->end=pNewNodeTemp;
       pSll->nNumberOfNode++;
       return;
     }
-  linkedNodeToNode(pSll->firts, newNodeTemp);
-  pSll->firts=newNodeTemp;
+  linkedNodeToNode(pSll->firts, pNewNodeTemp);
+  pSll->firts=pNewNodeTemp;
   pSll->nNumberOfNode++;
 }
 
@@ -635,16 +620,16 @@ void addEndSLinkedList(void* pContainerAdd, TSLinkedList* pSll)
       MSG("addEndSLinkedList(void* pContainerAdd, TSLinkeList* pSll): Cảnh báo: pContainerAdd và pSll không tương thích nhau!");
       exit(1);
     }
-  void* newNodeTemp;
-  newNodeTemp=newFullNodeToAdd(pContainerAdd);
+  void* pNewNodeTemp;
+  pNewNodeTemp=newFullNodeToAdd(pContainerAdd);
   if(0 == pSll->nNumberOfNode)
     {
-      pSll->firts = pSll->end = newNodeTemp;
+      pSll->firts = pSll->end = pNewNodeTemp;
       pSll->nNumberOfNode++;
       return;
     }
-  linkedNodeToNode(newNodeTemp, pSll->end);
-  pSll->end= newNodeTemp;
+  linkedNodeToNode(pNewNodeTemp, pSll->end);
+  pSll->end= pNewNodeTemp;
   pSll->nNumberOfNode++;
 }
 
@@ -680,10 +665,10 @@ void addNextCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll
       MSG("addNextCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll): Cảnh báo: pContainerAdd không  tươngthích với pSll!");
       exit(1);
     }
-  void* newNodeTemp;
-  newNodeTemp=newFullNodeToAdd(pContainerAdd);
-  linkedNodeToNode(nextCurr(*pSll,pCurr), newNodeTemp);
-  linkedNodeToNode(newNodeTemp, pCurr);
+  void* pNewNodeTemp;
+  pNewNodeTemp=newFullNodeToAdd(pContainerAdd);
+  linkedNodeToNode(nextCurr(pCurr,*pSll), pNewNodeTemp);
+  linkedNodeToNode(pNewNodeTemp, pCurr);
   pSll->nNumberOfNode++;
 }
 
@@ -701,7 +686,7 @@ void addPrewCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll
     }
   if(pCurr == NULL)
     {
-      MSG("addPrewCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll: Cảnh báo: pCur Null!)");
+      MSG("addPrewCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll): Cảnh báo: pCur Null!)");
       exit(1);
     }
   if(pCurr == pSll->firts)
@@ -711,18 +696,18 @@ void addPrewCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll
     }
   if(true == containerNotReady(pContainerAdd))
     {
-      MSG("addPrewCurrSLinkedList(void* pContainerAdd, void* pCutt, TSLinkedList* pSll): Cảnh báo: pContainer chưa sẵn sàng!");
+      MSG("addPrewCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll): Cảnh báo: pContainer chưa sẵn sàng!");
       exit(1);
     }
   if(true == containerNotSyncSLinkedList(pContainerAdd, *pSll))
     {
-      MSG("addPrewCurrSLinkedList(void* pContainer, void* pCurr, TSLinkedList* pSll): Cảnh báo: pContainerAdd và pSll không tương thích nhau!");
+      MSG("addPrewCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll): Cảnh báo: pContainerAdd và pSll không tương thích nhau!");
       exit(1);
     }
-  void* newNodeTemp;
-  newNodeTemp=newFullNodeToAdd(pContainerAdd);
-  linkedNodeToNode(pCurr, newNodeTemp);
-  linkedNodeToNode(newNodeTemp, prewCurr(pCurr, *pSll));
+  void* pNewNodeTemp;
+  pNewNodeTemp=newFullNodeToAdd(pContainerAdd);
+  linkedNodeToNode(pCurr, pNewNodeTemp);
+  linkedNodeToNode(pNewNodeTemp, prewCurr(pCurr, *pSll));
   pSll->nNumberOfNode++;
 }
 
@@ -744,11 +729,11 @@ void deleteFullFirtsSLinkedList(TSLinkedList* pSll)
     {
       pSll->firts = pSll->end = NULL;
       pSll->nNumberOfNode--;
-      deleteFullNode(pNodeTemp);
+      deleteFullNode(&pNodeTemp);
       return;
     }
   pSll->firts=nextCurr(pNodeTemp, *pSll);
-  deleteFullNode(pNodeTemp);
+  deleteFullNode(&pNodeTemp);
   pSll->nNumberOfNode--;
 }
 
@@ -770,49 +755,54 @@ void deleteFullEndSLinkedList(TSLinkedList* pSll)
       pNodeTemp= pSll->end;
       pSll->firts = pSll->end = NULL;
       pSll->nNumberOfNode--;
-      deleteFullNode(pNodeTemp);
+      deleteFullNode(&pNodeTemp);
       return;
     }
   pNodeTemp=prewCurr(pSll->end, *pSll);
   ((TNode*)pNodeTemp)->pNext = NULL;
-  deleteFullNode(pSll->end);
+  deleteFullNode(&(pSll->end));
   pSll->end= pNodeTemp;
   pSll->nNumberOfNode--;
 }
 
-void deleteFullCurr(void* pCurr, TSLinkedList* pSll)
+void deleteFullCurr(void** pCurr, TSLinkedList* pSll)
 {
   if(true == pointIsNull(pSll))
     {
-      MSG("deleteFullCurr(void* pCurr, TSLinkedList* pSll): Cảnh báo: pSll Null!");
+      MSG("deleteFullCurr(void** pCurr, TSLinkedList* pSll): Cảnh báo: pSll Null!");
       exit(1);
     }
   if(0 == pSll->nNumberOfNode)
     {
-      MSG("deleteFullCurr(void* pCurr, TSLinkedList* pSll): Cảnh báo: SLinkedList đã rỗng, không còn phần tử nào để xóa -> pCurr trỏ đến không phải là phần tử của SLinkedList!");
+      MSG("deleteFullCurr(void** pCurr, TSLinkedList* pSll): Cảnh báo: SLinkedList đã rỗng, không còn phần tử nào để xóa -> pCurr trỏ đến không phải là phần tử của SLinkedList!");
       exit(1);
     }
   if(pCurr == NULL)
     {
-      MSG("deleteFullCurr(void* pCurr, TSLinkedList* pSll): Cảnh báo: pCurr Null!");
+      MSG("deleteFullCurr(void** pCurr, TSLinkedList* pSll): Cảnh báo: pCurr Null!");
       exit(1);
     }
-  if(pCurr == pSll->firts)
+  if( (*pCurr) == NULL)
+    {
+      MSG("deleteFullCurr(void** pCurr, TSLinkedList* pSll): Cảnh báo: *pCurr Null!");
+      exit(1);
+    }
+  if( (*pCurr) == pSll->firts)
     {
       deleteFullFirtsSLinkedList(pSll);
       exit(1);
     }
-  if(pCurr == pSll->end)
+  if( (*pCurr) == pSll->end)
     {
       deleteFullEndSLinkedList(pSll);
       exit(1);
     }
   if(1 == pSll->nNumberOfNode)
     {
-      MSG("deleteFullCurr(void* pCurr, TSLinkedList* pSll): Cảnh báo: pCurr không trỏ đến phần tử nào của SLinkedList!");
+      MSG("deleteFullCurr(void** pCurr, TSLinkedList* pSll): Cảnh báo: *pCurr không trỏ đến phần tử nào của SLinkedList!");
       exit(1);
     }
-  linkedNodeToNode(nextCurr(pCurr, *pSll), prewCurr(pCurr, *pSll));
+  linkedNodeToNode(nextCurr(*pCurr, *pSll), prewCurr(*pCurr, *pSll));
   deleteFullNode(pCurr);
   pSll->nNumberOfNode--;
 }
