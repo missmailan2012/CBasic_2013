@@ -25,6 +25,7 @@ typedef struct
 enum {false, true};
 typedef char boolean;
 
+void MSG(char* pString);
 
 boolean sizeIsTrue(int nSize); //
 boolean sizeIsFalse(int nSize); //
@@ -37,7 +38,7 @@ void* newQuickContainer(); //
 void* newQuickNode(); // 
 
 void* newFullContainer(int nSizeOfData); // 
-void* newFullNode(int); // 
+void* newFullNode(int nSizeOfData); // 
 
 void deleteQuickContainer(void** pContainer); // 
 void deleteQuickNode(void** pNodeDelete); // 

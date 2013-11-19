@@ -1,5 +1,10 @@
 #include "singly_linked_list.h"
 
+void MSG(char* pString)
+{
+  printf("%s\n", pString);
+}
+
 boolean sizeIsTrue(int nSize)
 {
   if(nSize >=1)
@@ -447,7 +452,7 @@ void* elementi(int i, TSLinkedList sll)
 {
   if( (i < 0) || (i >= sll.nNumberOfNode))
     {
-      MSG("elementi(int i. TSLinkedList sll): Cảnh báo: không tồn tại vị trí i!");
+      MSG("elementi(int i, TSLinkedList sll): Cảnh báo: không tồn tại vị trí i!");
       exit(1);
     }
   void* pElementTemp;
@@ -527,7 +532,7 @@ void* nextCurr(void* pCurr, TSLinkedList sll)
   void* pRunTemp;
   pRunTemp=sll.pFirts;
   pNextTemp=((TNode*)pRunTemp)->pNext;
-  while(pRunTemp!= pCurr)
+  while(pRunTemp != pCurr)
     {
       pRunTemp=pNextTemp;
       pNextTemp=((TNode*)pRunTemp)->pNext;
@@ -541,6 +546,7 @@ void* nextCurr(void* pCurr, TSLinkedList sll)
 	  exit(1);
 	}
     }
+  return pNextTemp;
 }
 
 void* newFullNodeToAdd(void* pContainerAdd)
@@ -580,7 +586,7 @@ void addFirtsSLinkedList(void* pContainerAdd, TSLinkedList* pSll)
       MSG("addFirtsSLinkedList(void* pContainerAdd, TSLinkedList* pSll): Cảnh báo: pContainerAdd chưa sẵn sàng!");
       exit(1);
     }
-  if(true == pointIsFull(pSll))
+  if(true == pointIsNull(pSll))
     {
       MSG("addFirtsSLinkedList(void* pContainerAdd, TSlinkedList* pSll): Cảnh báo: pSll null!");
       exit(1);
@@ -667,6 +673,8 @@ void addNextCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll
     }
   void* pNewNodeTemp;
   pNewNodeTemp=newFullNodeToAdd(pContainerAdd);
+  printf("Dia chi Curr: %0x\n", pCurr);
+  printf("Dia chi nextCurr: %0x\n", nextCurr(pCurr,*pSll));
   linkedNodeToNode(nextCurr(pCurr,*pSll), pNewNodeTemp);
   linkedNodeToNode(pNewNodeTemp, pCurr);
   pSll->nNumberOfNode++;
@@ -713,7 +721,7 @@ void addPrewCurrSLinkedList(void* pContainerAdd, void* pCurr, TSLinkedList* pSll
 
 void deleteFullFirtsSLinkedList(TSLinkedList* pSll)
 {
-  if(true == pointIstNull(pSll))
+  if(true == pointIsNull(pSll))
     {
       MSG("deleteFullFirtsSLinkedList(TSLinkedList* pSll): Cảnh báo: pSll Null!");
       exit(1);
