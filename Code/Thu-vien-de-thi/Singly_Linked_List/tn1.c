@@ -6,8 +6,6 @@ typedef struct
   char email[50];
 }contact_t;
 
-
-
 int main(int argc, char* argv[])
 {
   FILE *f;
