@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
   socontact=5;
   void *pContainerTemp_A, *pContainerTemp_B;
   pContainerTemp_A = newFullContainer(sizeof(contact_t));
-  pContactTemp=(contact_t*)(((TContainer*)pContainerTemp_A)->pBlocksData);
+  pContactTemp=(contact_t*)addBlocksDataOfContainer(pContainerTemp_A);
   for(socontact_temp=0;socontact_temp<socontact;socontact_temp++)
     {
       //printf("Read file!\n");
@@ -44,16 +44,18 @@ int main(int argc, char* argv[])
       syncNodeToContainer(elementi(socontact_temp, sll), pContainerTemp_A);
       printf("-------\nName: %s\nPhone: %s\nEmail: %s\n", pContactTemp->name, pContactTemp->phone, pContactTemp->email);
     }
-  printf("So phan tu cua SLL: %d\n", sll.nNumberOfNode);
+  printf("\n\nSo phan tu cua SLL: %d\n\n", sll.nNumberOfNode);
   int d;
   MSG("Ban muon chen phan tu thu may: ");
   scanf("%d", &d);
   while(getchar()!= '\n');
   void* pNodeTemp;
   pNodeTemp=elementi(d, sll);
+  pContactTemp=(contact_t*)addBlocksDataOfNode(pNodeTemp);
+  printf("Thong tin chua trong Node hien tai la:\nName: %s\nPhone: %s\nEmail: %s\n", pContactTemp->name, pContactTemp->phone, pContactTemp->email);
   pContainerTemp_B=newFullContainer(sizeof(contact_t));
   pContactTemp=(contact_t*)(((TContainer*)pContainerTemp_B)->pBlocksData);
-  printf("Nhap ten: ");
+  printf("\n\nNhap ten: ");
   gets(pContactTemp->name);
   printf("Phone: ");
   gets(pContactTemp->phone);
@@ -71,5 +73,7 @@ int main(int argc, char* argv[])
       syncNodeToContainer(elementi(socontact_temp, sll), pContainerTemp_A);
       printf("-------\nName: %s\nPhone: %s\nEmail: %s\n", pContactTemp->name, pContactTemp->phone, pContactTemp->email);
     }
+  deleteFullSLinkedList(&sll);
+  printf("So phan tu hien tai cua SLL: %d\n", sll.nNumberOfNode);
   return 0;
 }

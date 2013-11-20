@@ -81,7 +81,6 @@ void* prewCurr(void* pCurr, TSLinkedList sll); //
 void* nextCurr(void* pCurr, TSLinkedList sll); //
 void* addBlocksDataOfContainer(void* pContainer);
 void* addBlocksDataOfNode(void* pNode);
-
 void* newFullNodeForAdd(void* pContainerAdd); // 
 
 void newSLinkedList(int nSizeOfData, TSLinkedList* pSll); // 

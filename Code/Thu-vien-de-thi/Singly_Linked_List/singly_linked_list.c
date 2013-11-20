@@ -549,6 +549,19 @@ void* nextCurr(void* pCurr, TSLinkedList sll)
   return pNextTemp;
 }
 
+void* addBlocksDataOfContainer(void* pContainer)
+{
+  void* pAddressBlocksDataTemp;
+  pAddressBlocksDataTemp=(((TContainer*)pContainer)->pBlocksData);
+  return pAddressBlocksDataTemp;
+}
+void* addBlocksDataOfNode(void* pNode)
+{
+  void* pAddressBlocksDataTemp;
+  pAddressBlocksDataTemp=((((TNode*)pNode)->memberData).pBlocksData);
+  return pAddressBlocksDataTemp;
+}
+
 void* newFullNodeToAdd(void* pContainerAdd)
 {
   if(true == containerNotReady(pContainerAdd))
