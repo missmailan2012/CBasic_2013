@@ -27,9 +27,7 @@ int main(int argc, char* argv[])
   pContactTemp=(contact_t*)(((TContainer*)pContainerTemp_A)->pBlocksData);
   for(socontact_temp=0;socontact_temp<socontact;socontact_temp++)
     {
-      //printf("Read file!\n");
       fread(pContactTemp,sizeof(contact_t),1,f);
-      //printf("Read file SS!\n");
       addEndSLinkedList(pContainerTemp_A, &sll);
       //printf("Add SUCCESS!\n");
       //printf("-------\nName: %s\nPhone: %s\nEmail: %s\n",pContactTemp->name, pContactTemp->phone, pContactTemp->email);
@@ -59,7 +57,7 @@ int main(int argc, char* argv[])
   gets(pContactTemp->phone);
   printf("Email: ");
   gets(pContactTemp->email);
-  addPrewCurrSLinkedList(pContainerTemp_B, pNodeTemp, &sll);
+  addNextCurrSLinkedList(pContainerTemp_B, pNodeTemp, &sll);
   printf("Sau khi them:\n");
   printf("So Node SLL la: %d\n", sll.nNumberOfNode);
   syncNodeToContainer(elementi(0,sll), pContainerTemp_A);
