@@ -98,3 +98,12 @@ void deleteFullPrewCurr(void* pCurr, TSLinkedList* pSll); //　
 void deleteFullNextCurr(void* pCurr, TSLinkedList* pSll); // 
 void deleteFullSLinkedList(TSLinkedList* pSll); //　
 
+void swapDataOfContainerToContainer(void* pContainerA, void* pContainerB);
+void swapDataOfNodeToNode(void* pNodeA, void* pNodeB);
+void swapDataOfContainerToNode(void* pContainer, void* pNode);
+void swapDataOfNodeToContainer(void* pNode, void* pContainer);
+
+void displayInfoOfContainer(void* pContainer, void displayInfomation());
+void displayInfoOfNode();
+void showSLinkedList(int nNumberElementDisplay, void show(void* pPointDataShow), TSLinkedList sll);
+

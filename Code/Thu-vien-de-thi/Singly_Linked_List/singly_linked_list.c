@@ -551,12 +551,22 @@ void* nextCurr(void* pCurr, TSLinkedList sll)
 
 void* addBlocksDataOfContainer(void* pContainer)
 {
+  if(true == containerNotReady(pContainer))
+    {
+      MSG("addBlocksDataOfContainer(void* pContainer): Cảnh báo: pContainer chưa sẵn sàng!");
+      exit(1);
+    }
   void* pAddressBlocksDataTemp;
   pAddressBlocksDataTemp=(((TContainer*)pContainer)->pBlocksData);
   return pAddressBlocksDataTemp;
 }
 void* addBlocksDataOfNode(void* pNode)
 {
+  if(true == nodeNotReady(pNode))
+    {
+      MSG("addBlocksDataOfNode(void* pNode): Cảnh báo: pNode chưa sẵn sàng!");
+      exit(1);
+    }
   void* pAddressBlocksDataTemp;
   pAddressBlocksDataTemp=((((TNode*)pNode)->memberData).pBlocksData);
   return pAddressBlocksDataTemp;

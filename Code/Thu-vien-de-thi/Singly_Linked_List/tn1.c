@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
   pContactTemp=(contact_t*)addBlocksDataOfNode(pNodeTemp);
   printf("Thong tin chua trong Node hien tai la:\nName: %s\nPhone: %s\nEmail: %s\n", pContactTemp->name, pContactTemp->phone, pContactTemp->email);
   pContainerTemp_B=newFullContainer(sizeof(contact_t));
-  pContactTemp=(contact_t*)(((TContainer*)pContainerTemp_B)->pBlocksData);
+  pContactTemp=(contact_t*)addBlocksDataOfContainer(pContainerTemp_B);
   printf("\n\nNhap ten: ");
   gets(pContactTemp->name);
   printf("Phone: ");
