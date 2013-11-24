@@ -25,6 +25,12 @@ typedef struct
 enum {false, true};
 typedef char boolean;
 
+typedef struct
+{
+  void* pNodeResult;
+  int iLocation;
+}TSearchResult;
+
 void MSG(char* pString);
 
 boolean sizeIsTrue(int nSize); //
@@ -81,6 +87,7 @@ void* prewCurr(void* pCurr, TSLinkedList sll); //
 void* nextCurr(void* pCurr, TSLinkedList sll); //
 void* addBlocksDataOfContainer(void* pContainer);
 void* addBlocksDataOfNode(void* pNode);
+void* containerOfNode(void* pNode);
 
 void* newFullNodeForAdd(void* pContainerAdd); // 
 
@@ -98,12 +105,16 @@ void deleteFullPrewCurr(void* pCurr, TSLinkedList* pSll); //　
 void deleteFullNextCurr(void* pCurr, TSLinkedList* pSll); // 
 void deleteFullSLinkedList(TSLinkedList* pSll); //　
 
-void swapDataOfContainerToContainer(void* pContainerA, void* pContainerB);
-void swapDataOfNodeToNode(void* pNodeA, void* pNodeB);
-void swapDataOfContainerToNode(void* pContainer, void* pNode);
-void swapDataOfNodeToContainer(void* pNode, void* pContainer);
+void swapDataOfContainerAndContainer(void* pContainerA, void* pContainerB); //
+void swapDataOfNodeAndNode(void* pNodeA, void* pNodeB); //
+void swapDataOfContainerAndNode(void* pContainer, void* pNode); //
 
-void displayInfoOfContainer(void* pContainer, void displayInfomation());
-void displayInfoOfNode();
-void showSLinkedList(int nNumberElementDisplay, void show(void* pPointDataShow), TSLinkedList sll);
+void displayInfoOfContainer(void* pContainer, void displayInfo(void* pBlocksData)); //
+void displayInfoOfNode(void* pNode, void displayInfo(void* pBlocksData)); //
+void showSLinkedList(int nNumberElementDisplay, void displayInfo(void* pBlocksData), TSLinkedList sll);
 
+TSearchResult sequentialSearch(void* pContainer, int compareContainerAndContainer(void* pContainerA, void* pContainerB), TSLinkedList sll);
+TSearchResult sequentialSentinelSearch(void* pContainer, int compareContainerAndContainer(void* pContainerA, void* pContainerB), TSLinkedList sll);
+TSearchResult binarySearch(void* pContainer, int compareContainerAndContainer(void* pContainerA, void* pContainerB), TSLinkedList sll);
+
+void respawnSLinkedList(TSLinkedList* pSll);
