@@ -13,7 +13,9 @@ pull: clean
 	git pull
 clean:
 	rm -rf *o *.run *~ *.a *.out
-tatmay:
+shutdown:
 	sudo shutdown now
 nhap:
 	gcc nhap.c -o nhap.run
+reboot:
+	sudo reboot
