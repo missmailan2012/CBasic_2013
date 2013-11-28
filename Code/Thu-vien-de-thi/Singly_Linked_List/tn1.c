@@ -1,4 +1,5 @@
 #include "singly_linked_list.h"
+#include <string.h>
 typedef struct
 {
   char name[50];
@@ -17,9 +18,14 @@ void HienThi(void* pContainer)
 int compare(void* pContainerA, void* pContainerB)
 {
   contact_t *pContactA, *pContactB;
+  int kq;
   pContactA = (contact_t*)addBlocksDataOfContainer(pContainerA);
   pContactB = (contact_t*)addBlocksDataOfContainer(pContainerB);
-  switch(strcmp(pContactA->name, pContactB->name))
+  puts(pContactA->name);
+  puts(pContactB->name);
+  kq = strcmp(pContactA->name, pContactB->name);
+  printf("Gt cua kq: %d", kq);
+  switch(kq)
     {
     case 0:
       {
@@ -34,6 +40,8 @@ int compare(void* pContainerA, void* pContainerB)
 	return -1;
       }
     }
+  printf("Cai loz gi the nay!\n");
+  return 4;
 }
 
 int main(int argc, char* argv[])
