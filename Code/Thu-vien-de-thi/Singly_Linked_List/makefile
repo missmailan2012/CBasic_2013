@@ -18,4 +18,4 @@ shutdown:
 nhap:
 	gcc nhap.c -o nhap.run
 reboot:
-	sudo reboot
+	git add . && git push && sudo reboot
