@@ -14,6 +14,28 @@ void HienThi(void* pContainer)
  return;
 }
 
+int compare(void* pContainerA, void* pContainerB)
+{
+  contact_t *pContactA, *pContactB;
+  pContactA = (contact_t*)addBlocksDataOfContainer(pContainerA);
+  pContactB = (contact_t*)addBlocksDataOfContainer(pContainerB);
+  switch(strcmp(pContactA->name, pContactB->name))
+    {
+    case 0:
+      {
+	return 0;
+      }
+    case 1:
+      {
+	return 1;
+      }
+    case -1:
+      {
+	return -1;
+      }
+    }
+}
+
 int main(int argc, char* argv[])
 {
   FILE *f;
@@ -65,7 +87,16 @@ int main(int argc, char* argv[])
   MSG("Sau khi respawn:\n");
   printf("So Node SLL la: %d\n", sll.nNumberOfNode);
   showSLinkedList(0, HienThi, sll);
-  deleteFullSLinkedList(&sll);
   printf("So phan tu hien tai cua SLL: %d\n", sll.nNumberOfNode);
+  socontact_temp = socontact;
+  for(socontact_temp = 0; socontact_temp < socontact;)
+    {
+      printf("So sanh not thu: %d va nut thu %d la: %d\n", socontact_temp, socontact_temp + 1, compare(containerOfNode(elementi(socontact_temp, sll)), containerOfNode(elementi(socontact_temp +1, sll))));
+      HienThi(containerOfNode(elementi(socontact_temp, sll)));
+      HienThi(containerOfNode(elementi(socontact_temp +1, sll)));
+      socontact_temp++;
+      MSG("_____________________+++++++++++++++++++++________________________");
+    }
+  deleteFullSLinkedList(&sll);
   return 0;
 }

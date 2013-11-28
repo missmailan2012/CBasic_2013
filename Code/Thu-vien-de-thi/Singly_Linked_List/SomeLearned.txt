@@ -1,0 +1,2 @@
+De tao thu vien dong: dung lenh ar -rcs <Ten thu vien .a> <cac file .o>
+vi du: ar -rcs mylib.a singly_linked_list.o main.o

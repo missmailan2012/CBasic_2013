@@ -109,12 +109,15 @@ void swapDataOfContainerAndContainer(void* pContainerA, void* pContainerB); //
 void swapDataOfNodeAndNode(void* pNodeA, void* pNodeB); //
 void swapDataOfContainerAndNode(void* pContainer, void* pNode); //
 
-void displayInfoOfContainer(void* pContainer, void displayInfo(void* pBlocksData)); //
+/*void displayInfoOfContainer(void* pContainer, void displayInfo(void* pBlocksData)); // */
 void displayInfoOfNode(void* pNode, void displayInfo(void* pBlocksData)); //
 void showSLinkedList(int nNumberElementDisplay, void displayInfo(void* pBlocksData), TSLinkedList sll);
 
 TSearchResult sequentialSearch(void* pContainer, int compareContainerAndContainer(void* pContainerA, void* pContainerB), TSLinkedList sll);
 TSearchResult sequentialSentinelSearch(void* pContainer, int compareContainerAndContainer(void* pContainerA, void* pContainerB), TSLinkedList sll);
 TSearchResult binarySearch(void* pContainer, int compareContainerAndContainer(void* pContainerA, void* pContainerB), TSLinkedList sll);
+/*
+TSearchResult binarySearch() cos mot doi so la mot ham: int compareContainerAndContainer(void* pContainerA, void* pContainerB) trong do luu y dau vao: phan tu dang can tim se la phan tu mau, co nghia la pContainerA phai la con tro den container can tim.
+ */
 
 void respawnSLinkedList(TSLinkedList* pSll);
