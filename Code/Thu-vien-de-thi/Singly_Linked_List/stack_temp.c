@@ -19,6 +19,7 @@ int main()
     }
   for(count = 0; count < 6; count++)
     {
+      printf("So phan tu cua stack: %d\n", stack.memberCore.nNumberOfNode);
       popStack(pContainerTemp, &stack);
       printf("%c----\n", *ch);
     }

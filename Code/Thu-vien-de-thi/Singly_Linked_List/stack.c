@@ -8,28 +8,28 @@ TSLinkedList coreOfStack(TStack stack)
   sLinkedListTemp.pEnd = stack.memberCore.pEnd;
   return sLinkedListTemp;
 }
-TSLinkedList* pCoreOfStack(TStack stack)
+void* pCoreOfStack(TStack* pStack)
 {
-  TSLinkedList* pMemberCoreTemp;
-  pMemberCoreTemp = &(stack.memberCore);
+  void* pMemberCoreTemp;
+  pMemberCoreTemp = &(pStack->memberCore);
   return pMemberCoreTemp;
 }
 
 boolean stackIsEmpty(TStack stack)
 {
-  if(0 != (coreOfStack(stack)).nNumberOfNode )
+  if(0 == stack.memberCore.nNumberOfNode )
     {
-      return false;
+      return true;
     }
-  return true;
+  return false;
 }
 boolean stackNotEmpty(TStack stack)
 {
-  if(0 == (coreOfStack(stack)).nNumberOfNode )
+  if(0 != stack.memberCore.nNumberOfNode )
     {
-      return false;
+      return true;
     }
-  return true;
+  return false;
 }
 boolean containerNotSyncStack(void* pContainer, TStack stack)
 {
@@ -57,7 +57,7 @@ void newStack(int nSizeOfData, TStack* pStack)
       MSG("void newStack(int nSizeOfData, TStack* pStack): Cảnh báo: pStack Null!");
       exit(1);
     }
-  newSLinkedList(nSizeOfData, pCoreOfStack(*pStack));
+  newSLinkedList(nSizeOfData, pCoreOfStack(pStack));
   return;
 }
 
@@ -73,7 +73,7 @@ void makeEmptyStack(TStack* pStack)
       MSG("void makeEmptyStack(TStack* pStack): Cảnh báo: pStack đã Empty, không thể tiến hành makeEmpty được!");
       return;
     }
-  deleteFullSLinkedList(pCoreOfStack(*pStack));
+  deleteFullSLinkedList(pCoreOfStack(pStack));
   return;
 }
 
@@ -94,7 +94,7 @@ void pushStack(void* pContainer, TStack* pStack)
       MSG("void pushStack(void* pContainer, TStack* pStack): Cảnh báo: pContainer và pStack không tương thích!");
       exit(1);
     }
-  addFirtsSLinkedList(pContainer, pCoreOfStack(*pStack));
+  addFirtsSLinkedList(pContainer, pCoreOfStack(pStack));
   return;
 }
 void* popStack(void* pContainerOut, TStack* pStack)
@@ -117,11 +117,11 @@ void* popStack(void* pContainerOut, TStack* pStack)
       void* pContainerOutTemp;
       pContainerOutTemp = newFullContainer((pStack->memberCore).nSizeOfData );
       syncContainerToContainer(containerOfNode((pStack->memberCore).pFirts), pContainerOut);
-      deleteFullFirtsSLinkedList(pCoreOfStack(*pStack));
+      deleteFullFirtsSLinkedList(pCoreOfStack(pStack));
       return pContainerOutTemp;
     }
   syncContainerToContainer(containerOfNode((pStack->memberCore).pFirts), pContainerOut);
-  deleteFullFirtsSLinkedList(pCoreOfStack(*pStack));
+  deleteFullFirtsSLinkedList(pCoreOfStack(pStack));
   return pContainerOut;
 }
 void viewTopStack(void* pContainerView, TStack stack)

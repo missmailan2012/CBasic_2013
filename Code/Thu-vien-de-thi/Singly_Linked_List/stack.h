@@ -6,7 +6,7 @@ typedef struct
 }TStack;
 
 TSLinkedList coreOfStack(TStack stack);
-TSLinkedList* pCoreOfStack(TStack stack);
+void* pCoreOfStack(TStack* pStack);
 
 boolean stackIsEmpty(TStack stack);
 boolean stackNotEmpty(TStack stack);

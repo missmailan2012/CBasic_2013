@@ -1,0 +1,24 @@
+all: extab.run
+extab.run: tn1.o singly_linked_list.o
+	gcc -g tn1.o singly_linked_list.o -o extab.run
+tn1.o: tn1.c
+	gcc -c -g tn1.c
+push: clean
+	git push
+pull: clean
+	git pull
+clean:
+	rm -rf *o *.run *~ *.a *.out
+shutdown:
+	sudo shutdown now
+nhap:
+	gcc -g nhap.c -o nhap.run
+reboot:
+	git add . && git push && sudo reboot
+stack_temp: stack_temp.run
+stack_temp.run: singly_linked_list.o stack.o stack_temp.o
+	gcc -g singly_linked_list.o stack.o stack_temp.o -o stack_temp.run 
+singly_linked_list.o: singly_linked_list.c singly_linked_list.h
+	gcc -c -g singly_linked_list.c
+stack.o: stack.c
+	gcc -c -g stack.c
