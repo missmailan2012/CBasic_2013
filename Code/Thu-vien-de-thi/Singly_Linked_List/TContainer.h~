@@ -1,7 +1,0 @@
-typedef struct
-{
-  void* pBlocksData;
-  int nSizeOfData;
-}TContainer;
-
-TContainer* container.NewFull
